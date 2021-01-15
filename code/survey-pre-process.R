@@ -81,26 +81,10 @@ raw_responses[i,"profbody.pdma"] <-  TRUE
 
 raw_responses <- raw_responses[-3]
 
-names(raw_responses)[3] <- "org.industry"
-names(raw_responses)[4] <- "org.employees"
-names(raw_responses)[5] <- "org.TTM"
-names(raw_responses)[6] <- "org.releases"
-names(raw_responses)[7] <- "org.prodteamsize"
-names(raw_responses)[8] <- "org.location"
-names(raw_responses)[9] <- "roadmap.happiness"
-names(raw_responses)[17] <- "role.happiness"
-names(raw_responses)[18] <- "roadmap.detailing"
-names(raw_responses)[19] <- "roadmap.items"
-names(raw_responses)[20] <- "roadmap.reliability"
-names(raw_responses)[21] <- "roadmap.confidence"
-names(raw_responses)[22] <- "roadmap.discovery"
-names(raw_responses)[23] <- "roadmap.prioritization"
-names(raw_responses)[24] <- "roadmap.alignment"
-names(raw_responses)[25] <- "roadmap.responsibility"
-names(raw_responses)[26] <- "roadmap.ownership"
-names(raw_responses)[27] <- "roadmap.tools"
-names(raw_responses)[28] <- "info.sources"
-#raw_responses[,29] <- as.factor(raw_responses[,29])
+names(raw_responses)[3:9] <- c("org.industry","org.employees","org.TTM","org.releases","org.prodteamsize","org.location","roadmap.happiness")
+names(raw_responses)[17:28] <- c("role.happiness","roadmap.detailing", "roadmap.items", "roadmap.reliability", "roadmap.confidence", "roadmap.discovery", "roadmap.prioritization", "roadmap.alignment", "roadmap.responsibility", "roadmap.ownership", "roadmap.tools", "info.sources")
+
+raw_responses[7, 19] = "Mainly customer and business goals, products, features and for the long-term timeframe topics (e.g., smart home)"
 
 raw_responses <- raw_responses[-29]  #remove old duplicate question
 raw_responses <- raw_responses[-29]  #remove free text questions from this analysis

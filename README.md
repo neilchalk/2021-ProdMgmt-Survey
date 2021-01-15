@@ -14,10 +14,14 @@ This survey builds on the previous work by [Maglyas and Fricker](https://www.res
 ## About this repo
 
 **code book.md**
-Following [Jeff leek's datasharing](https://github.com/neilchalk/datasharing) guidelines, this details the study design and encoding of the data.
+Following [Jeff Leek's datasharing](https://github.com/neilchalk/datasharing) guidelines, this details the study design and encoding of the data.
 
 **code**
 This folder contains the R scripts and R Markdown files to pre-process the data, model it, and then produce the output from the analysis.
 
 **data**
-Copy of the anonyised raw data from Google Forms, and any tidied output data sets used in analysis.
+Copy of the anonymised raw data from Google Forms, and any tidied output data sets used in analysis.
+
+## How to cite
+
+Chalk, N (2021) _2021 Product Management Survey_ [Data file and code book] https://github.com/neilchalk/2021-ProdMgmt-Survey

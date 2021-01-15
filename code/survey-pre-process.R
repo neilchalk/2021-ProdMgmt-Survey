@@ -12,7 +12,7 @@ summary(raw_responses)
 
 
 #tidy up structure
-
+raw_responses <- raw_responses[-2]
 #tidy up NULLS
 
 

@@ -2,15 +2,14 @@ library(rpivotTable)
 library(dplyr)
 library(tidyr)
 
+
 setwd("~/R/2021-ProdMgmt-Survey/code")
 
 clean_responses <- read.csv("../data/2021-prdmgmt-survey-clean.csv", stringsAsFactors=FALSE)
 
 
 
-summary(clean_responses[3:8])
 
-summary(clean_responses[18:26])
 
 
 #calculate roadmap process maturity based upon:
@@ -83,10 +82,90 @@ clean_responses$roadmap.mat_level <- case_when(
       clean_responses$roadmap.DEEPScore <= 83 ~ 4,
       clean_responses$roadmap.DEEPScore <= 100 ~ 5)
 
+#put in factors
+clean_responses$Job.title = factor(clean_responses$Job.title)
 
-lmDEEPScore = lm(clean_responses$roadmap.DEEPScore ~ clean_responses$roadmap.happiness + clean_responses$role.happiness, data = clean_responses) #Create a linear regression with two variables
+clean_responses$org.employees = factor(clean_responses$org.employees, levels = c("< 10","10-49","50-249","250-4499",">= 4500"))
+clean_responses$org.TTM = factor(clean_responses$org.TTM, levels = c("Less than 4.5 months","4.5 months to < 9 months","9 Months to < 18 months","More than 18 months","Don't know and cannot estimate"))
+clean_responses$org.releases = factor(clean_responses$org.releases, levels =c("More than 12 releases a year","5-12 releases a year","3-4 releases a year","About 2 releases per year", "About 1 release per year", "Less than one release per year", "No release so far"))
+clean_responses$org.prodteamsize = factor(clean_responses$org.prodteamsize, levels = c("< 4","4-9","10-19","20-49","50-249","> 250"))
+clean_responses$org.location = factor(clean_responses$org.location)
+
+clean_responses$roadmap.detailing = factor(clean_responses$roadmap.detailing, levels= c("Next steps are planned ad-hoc and there is no mid- to long term planning. Only short-term planning exists.",
+                                                                                        "All tasks are planned and worked out in detail for short-,mid- and long term.",
+                                                                                        "There is some correlation between time and level of detail but the detailing of the items is not done systematically.",
+                                                                                        "There is a clear correlation between time and level of detail. The timelier items are more detailed.",
+                                                                                        "Short-term items are detailed, prioritized, estimated and validated. Mid-term items are under validation or being discovered. The long-term timeframe contains themes."
+)
+)
+
+clean_responses$roadmap.items = factor(clean_responses$roadmap.items, levels= c("Mainly products",
+                                                                                "Mainly products, features",
+                                                                                "Mainly business goals, products,  features",
+                                                                                "Mainly customer and business goals, products, features and for the long-term timeframe topics (e.g., smart home)",
+                                                                                "Mainly product vision, customer and business goals, products, features and for the long-term timeframe themes (i.e., high-level customer needs)"
+)
+)
+clean_responses$roadmap.reliability = factor(clean_responses$roadmap.reliability, levels= c("Permanent ad-hoc adjustments.",
+                                                                                            "Frequent ad-hoc adjustments." ,
+                                                                                            "Mainly in regular review cycles (e.g., every 3 months)",
+                                                                                            "Adjustments are mainly done reactively on demand.",
+                                                                                            "Adjustments are mainly done proactively."   
+)
+)
+clean_responses$roadmap.confidence = factor(clean_responses$roadmap.confidence, levels= c( "The impacts are not considered.",
+                                                                                           "The impacts are mainly estimated by experts",
+                                                                                           "The impacts are mainly determined based on data from the past (e.g., statistics).",
+                                                                                           "The impacts are partly validated",
+                                                                                           "The impacts are systematically validated." 
+)
+)
+clean_responses$roadmap.discovery = factor(clean_responses$roadmap.discovery, levels= c( "No discovery activities. Typically, a manager is defining the roadmap items.",
+                                                                                         "Product roadmap items are mainly defined based on expert knowledge.",
+                                                                                         "Product roadmap items are mainly defined based on customer requests.",
+                                                                                         "Several discovery activities are conducted (e.g., user research) but they are not or only loosely integrated with  delivery  activities.",
+                                                                                         "Close integration of discovery and delivery activities"  
+)
+)
+clean_responses$roadmap.prioritization = factor(clean_responses$roadmap.prioritization, levels= c( "First in, first out",
+                                                                                                   "Opinions determine priority",
+                                                                                                   "Prioritization is based on the capability to deliver (e.g., low hanging fruits)",
+                                                                                                   "Prioritization is based on short term benefit (e.g., shareholder value).",
+                                                                                                   "Prioritization is done with an established process and focuses on delivering value to customers and the business." 
+)
+)
+clean_responses$roadmap.alignment = factor(clean_responses$roadmap.alignment, levels= c( "No alignment. No one or only one stakeholder such as high level management has a product roadmap that is not communicated to others.",
+                                                                                         "Several loosely connected product roadmaps for internal stakeholders exist.",
+                                                                                         "Several loosely connected product roadmaps for internal and external stakeholders exist.",
+                                                                                         "One central product roadmap exists for different internal and external stakeholders.",
+                                                                                         "One central product roadmap exists that allows to derive different representations for different stakeholders. A process for achieving alignment and buy-in is in place."
+)
+)
+clean_responses$roadmap.responsibility = factor(clean_responses$roadmap.responsibility, levels= c( "Tools are used to decide if items are placed on the roadmap (e.g., decision matrix).",
+                                                                                                   "Management",
+                                                                                                   "Specific roles (e.g., portfolio manager)",
+                                                                                                   "Product Management",
+                                                                                                   "Product  Management with cross-functional product teams in  liaison with key stakeholders." 
+)
+)
+clean_responses$roadmap.ownership = factor(clean_responses$roadmap.ownership, levels= c( "No owner defined",
+                                                                                         "Managers",
+                                                                                         "Ownership is shared between multiple roles",
+                                                                                         "Strategy or portfolio planning",
+                                                                                         "Product management or product teams"
+)
+)
+
+## Begin exploring data
+
+summary(clean_responses[3:8])
+
+summary(clean_responses[18:26])
+
+
+lmDEEPScore = lm(clean_responses$roadmap.DEEPScore ~ clean_responses$org.employees + clean_responses$org.TTM + clean_responses$org.releases + clean_responses$org.prodteamsize + clean_responses$org.location, data = clean_responses) #Create a linear regression with two variables
 summary(lmDEEPScore)
-
+anova(lmDEEPScore)
 #average happiness with roadmap by job title
 clean_responses %>%
   select(Job.title, roadmap.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
@@ -112,7 +191,6 @@ clean_responses %>%
   group_by(org.TTM) %>%
   summarise(n = n(),
             roadmap.happiness = mean(roadmap.happiness),
-            #role.happiness = mean(role.happiness),
             roadmap.DEEPScore = mean(roadmap.DEEPScore),
             roadmap.mat_level = mean(roadmap.mat_level)) 
 

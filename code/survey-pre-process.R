@@ -1,3 +1,10 @@
+## survey-pre-process.R
+##    Run this script first to create the clean data set from the Google Forms output collected at https://forms.gle/uQ6jiy44jJe7iUZV9
+##
+## Acknowledgements
+##  
+##
+
 library(dplyr)
 
 setwd("~/R/2021-ProdMgmt-Survey/code")
@@ -81,11 +88,12 @@ raw_responses[i,"profbody.pdma"] <-  TRUE
 
 raw_responses <- raw_responses[-3]
 
+#rename column headings to be easier to work with
 names(raw_responses)[3:9] <- c("org.industry","org.employees","org.TTM","org.releases","org.prodteamsize","org.location","roadmap.happiness")
 names(raw_responses)[17:28] <- c("role.happiness","roadmap.detailing", "roadmap.items", "roadmap.reliability", "roadmap.confidence", "roadmap.discovery", "roadmap.prioritization", "roadmap.alignment", "roadmap.responsibility", "roadmap.ownership", "roadmap.tools", "info.sources")
 
+#data cleansing from errors in survey setup in Google Forms
 raw_responses[7, 19] = "Mainly customer and business goals, products, features and for the long-term timeframe topics (e.g., smart home)"
-
 raw_responses <- raw_responses[-29]  #remove old duplicate question
 raw_responses <- raw_responses[-29]  #remove free text questions from this analysis
 raw_responses <- raw_responses[-1]  #remove Timestamp from this analysis

@@ -1,30 +1,56 @@
 ---
 title: "Product Management - State-of-practice 2021"
-author: "Neil Chalk"
-date: "14/01/2021"
-output: html_document
+author: "[Neil Chalk](https://www.researchgate.net/profile/Neil_Chalk)"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    theme: journal
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Organisations
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+What is the make up of the organisations that the respondents are working in?
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r org, echo=FALSE}
+summary(clean_responses[3:4])
+summary(clean_responses[5:7])
 ```
 
-## Including Plots
+And where are they located?
 
-You can also embed plots, for example:
+![Location of respondents to the survey](../outputs/ResponsesMap.png)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+## Role
+
+How happy were the respondents with their roadmap process and level of responsibilty in the role?
+```{r role, echo=FALSE}
+clean_responses %>%
+  select(Job.title, roadmap.happiness, role.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
+  group_by(Job.title) %>%
+  summarise(n = n(),
+            roadmap.happiness = mean(roadmap.happiness),
+            role.happiness = mean(role.happiness)) 
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Roadmap
+
+How mature were the roadmap processes by job title of respondent? Also did happiness with the roadmap process lead to a higher maturity score?
+```{r roadmap, echo=FALSE}
+clean_responses %>%
+  select(Job.title, roadmap.DEEPScore, roadmap.mat_level) %>% 
+  group_by(Job.title) %>%
+  summarise(n = n(),
+            roadmap.DEEPScore = mean(roadmap.DEEPScore),
+            roadmap.mat_level = mean(roadmap.mat_level)) 
+
+
+ggplot(clean_responses) +
+  geom_point(aes(x = roadmap.happiness, y = roadmap.DEEPScore, colour = roadmap.mat_level)) 
+
+```

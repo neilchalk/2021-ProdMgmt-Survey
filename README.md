@@ -22,6 +22,9 @@ This folder contains the R scripts and R Markdown files to pre-process the data,
 **data**
 Copy of the anonymised raw data from Google Forms, and any tidied output data sets used in analysis.
 
+**outputs**
+Copy of any outputs of code analysis, e.g. image and HTML files, PDF and Word documents, or spreadsheets.
+
 ## How to cite
 
 Chalk, N (2021) _2021 Product Management Survey_ [Data file and code book] https://github.com/neilchalk/2021-ProdMgmt-Survey

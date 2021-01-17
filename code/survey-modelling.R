@@ -1,3 +1,9 @@
+## survey-modelling.R
+##    first run survey-pre-process.R to create the clean data set 
+##
+## Acknowledgements
+##  
+## 
 library(rpivotTable) 
 library(dplyr)
 library(tidyr)
@@ -6,11 +12,6 @@ library(tidyr)
 setwd("~/R/2021-ProdMgmt-Survey/code")
 
 clean_responses <- read.csv("../data/2021-prdmgmt-survey-clean.csv", stringsAsFactors=FALSE)
-
-
-
-
-
 
 #calculate roadmap process maturity based upon:
 # Jürgen Münch,Stefan Trieflinger, Dominic Lang (2019) The Product Roadmap Maturity Model DEEP: Validation of a Method for Assessing the Product Roadmap Capabilities of Organizations
@@ -84,7 +85,7 @@ clean_responses$roadmap.mat_level <- case_when(
 
 #put in factors
 clean_responses$Job.title = factor(clean_responses$Job.title)
-
+clean_responses$org.industry = factor(clean_responses$org.industry)
 clean_responses$org.employees = factor(clean_responses$org.employees, levels = c("< 10","10-49","50-249","250-4499",">= 4500"))
 clean_responses$org.TTM = factor(clean_responses$org.TTM, levels = c("Less than 4.5 months","4.5 months to < 9 months","9 Months to < 18 months","More than 18 months","Don't know and cannot estimate"))
 clean_responses$org.releases = factor(clean_responses$org.releases, levels =c("More than 12 releases a year","5-12 releases a year","3-4 releases a year","About 2 releases per year", "About 1 release per year", "Less than one release per year", "No release so far"))
@@ -158,9 +159,7 @@ clean_responses$roadmap.ownership = factor(clean_responses$roadmap.ownership, le
 
 ## Begin exploring data
 
-summary(clean_responses[3:8])
 
-summary(clean_responses[18:26])
 
 
 lmDEEPScore = lm(clean_responses$roadmap.DEEPScore ~ clean_responses$org.employees + clean_responses$org.TTM + clean_responses$org.releases + clean_responses$org.prodteamsize + clean_responses$org.location, data = clean_responses) #Create a linear regression with two variables
@@ -168,10 +167,11 @@ summary(lmDEEPScore)
 anova(lmDEEPScore)
 #average happiness with roadmap by job title
 clean_responses %>%
-  select(Job.title, roadmap.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
+  select(Job.title, roadmap.happiness, role.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
   group_by(Job.title) %>%
   summarise(n = n(),
             roadmap.happiness = mean(roadmap.happiness),
+            role.happiness = mean(role.happiness),
             roadmap.DEEPScore = mean(roadmap.DEEPScore),
             roadmap.mat_level = mean(roadmap.mat_level)) 
 
@@ -201,3 +201,10 @@ clean_responses %>%
   summarise(n = n(),
             roadmap.DEEPScore = mean(roadmap.DEEPScore),
             roadmap.mat_level = mean(roadmap.mat_level)) 
+
+
+
+
+lmDEEPScore2 = lm(clean_responses$roadmap.DEEPScore ~ clean_responses$Product.Strategy + clean_responses$Product.Planning, data = clean_responses, na.action = na.exclude) #Create a linear regression with two variables
+summary(lmDEEPScore2)
+anova(lmDEEPScore2)

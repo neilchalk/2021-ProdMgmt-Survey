@@ -1,8 +1,8 @@
-# 2021-ProdMgmt-Survey
+# 2021 Product Management Survey on the current state-of-practice
 
 ## About the survey
 
-2021 Product Management Survey on the current state-of-practice. This survey is part of the Open University professional research project where Neil Chalk is examining Roadmaps and Software Product Management as part of his MSc in Technology Management.
+2021 Product Management Survey on the current state-of-practice. This survey is part of the Open University professional research project where [Neil Chalk](https://www.researchgate.net/profile/Neil_Chalk) is examining Roadmaps and Software Product Management as part of his MSc in Technology Management.
 
 All data held is anonymous, The raw data set and analysis cookbook will be shared once the survey data collection has completed. Unless noted otherwise all data will be shared as collected. This data will not be sold to any third party. Details of how to request the results once all the data collection has finished are at the end of this questionnaire.
 
@@ -32,4 +32,4 @@ Copy of any outputs of code analysis, e.g. image and HTML files, PDF and Word do
 
 ## How to cite
 
-Chalk, N (2021) _2021 Product Management Survey_ [Data file and code book] https://github.com/neilchalk/2021-ProdMgmt-Survey
+Chalk, N (2021) _2021 Product Management Survey on the current state-of-practice_ [Data file and code book] https://github.com/neilchalk/2021-ProdMgmt-Survey

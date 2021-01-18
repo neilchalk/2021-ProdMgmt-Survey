@@ -158,50 +158,6 @@ clean_responses$roadmap.ownership = factor(clean_responses$roadmap.ownership, le
 )
 )
 
-## Begin exploring data
-
-
-
-
-lmDEEPScore = lm(clean_responses$roadmap.DEEPScore ~ clean_responses$org.employees + clean_responses$org.TTM + clean_responses$org.releases + clean_responses$org.prodteamsize + clean_responses$org.location, data = clean_responses) #Create a linear regression with two variables
-summary(lmDEEPScore)
-anova(lmDEEPScore)
-#average happiness with roadmap by job title
-clean_responses %>%
-  select(Job.title, roadmap.happiness, role.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
-  group_by(Job.title) %>%
-  summarise(n = n(),
-            roadmap.happiness = mean(roadmap.happiness),
-            role.happiness = mean(role.happiness),
-            roadmap.DEEPScore = mean(roadmap.DEEPScore),
-            roadmap.mat_level = mean(roadmap.mat_level)) 
-
-#average happiness with roadmap by location
-clean_responses %>%
-  select(org.location, roadmap.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
-  group_by(org.location) %>%
-  summarise(n = n(),
-            roadmap.happiness = mean(roadmap.happiness),
-            roadmap.DEEPScore = mean(roadmap.DEEPScore),
-            roadmap.mat_level = mean(roadmap.mat_level)) 
-
-
-#average happiness with roadmap by time to market
-clean_responses %>%
-  select(org.TTM, roadmap.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
-  group_by(org.TTM) %>%
-  summarise(n = n(),
-            roadmap.happiness = mean(roadmap.happiness),
-            roadmap.DEEPScore = mean(roadmap.DEEPScore),
-            roadmap.mat_level = mean(roadmap.mat_level)) 
-
-#average DEEPScore with roadmap by roadmap hapiness
-clean_responses %>%
-  select( roadmap.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
-  group_by(roadmap.happiness) %>%
-  summarise(n = n(),
-            roadmap.DEEPScore = mean(roadmap.DEEPScore),
-            roadmap.mat_level = mean(roadmap.mat_level)) 
 
 
 

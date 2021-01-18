@@ -1,7 +1,8 @@
 # 2021-ProdMgmt-Survey
 
 ## About the survey
-2021 Product Management Survey on the current state-of-practice. This survey is part of the Open University professional research project where Neil Chalk is examining Roadmaps and Software Product Management as part of his MSc in Technology Management. 
+
+2021 Product Management Survey on the current state-of-practice. This survey is part of the Open University professional research project where Neil Chalk is examining Roadmaps and Software Product Management as part of his MSc in Technology Management.
 
 All data held is anonymous, The raw data set and analysis cookbook will be shared once the survey data collection has completed. Unless noted otherwise all data will be shared as collected. This data will not be sold to any third party. Details of how to request the results once all the data collection has finished are at the end of this questionnaire.
 
@@ -13,16 +14,20 @@ This survey builds on the previous 2014 study [The Preliminary Results from the 
 
 ## About this repo
 
-**code book.md**
+### code book.md
+
 Following [Jeff Leek's datasharing](https://github.com/neilchalk/datasharing) guidelines, this details the study design and encoding of the data.
 
-**code**
+### code
+
 This folder contains the R scripts and R Markdown files to pre-process the data, model it, and then produce the output from the analysis.
 
-**data**
+### data
+
 Copy of the anonymised raw data from Google Forms, and any tidied output data sets used in analysis.
 
-**outputs**
+### outputs
+
 Copy of any outputs of code analysis, e.g. image and HTML files, PDF and Word documents, or spreadsheets.
 
 ## How to cite

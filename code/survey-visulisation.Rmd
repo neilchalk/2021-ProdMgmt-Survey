@@ -1,10 +1,9 @@
 ---
-title: "Product Management - State-of-practice 2021"
-author: "[Neil Chalk](https://www.researchgate.net/profile/Neil_Chalk)"
+title: "2021 Product Management Survey on the current state-of-practice"
+author: '[Neil Chalk](https://www.researchgate.net/profile/Neil_Chalk)'
 date: "`r Sys.Date()`"
-output: 
-  html_document: 
-    theme: journal
+output:
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -37,6 +36,23 @@ clean_responses %>%
 
 ```
 
+Where do people go to get their information?
+
+```{r role2, echo=FALSE}
+clean_responses %>%
+  select(Job.title, info.events, info.blogs, info.books, info.communities, info.profbody, info.profcert, info.training, info.vendor, info.google) %>%
+  mutate_if(is.character,as.factor) %>%
+  group_by(Job.title) %>%
+  summarise("Events and conferences" = sum(info.events)/n()*100,
+            "Blogs" = sum(info.blogs)/n()*100,
+            "Books" = sum(info.books)/n()*100,
+            "Online Communities" = sum(info.communities)/n()*100,
+            "Professional Bodies" = sum(info.profbody)/n()*100,
+            "Professional Certification" = sum(info.profcert)/n()*100,
+            "Professional Training" = sum(info.training)/n()*100,
+            "Tool Vendor material" = sum(info.vendor)/n()*100,
+            "Google" = sum(info.google)/n()*100)
+```
 
 ## Roadmap
 
@@ -51,6 +67,6 @@ clean_responses %>%
 
 
 ggplot(clean_responses) +
-  geom_point(aes(x = roadmap.happiness, y = roadmap.DEEPScore, colour = roadmap.mat_level)) 
+  geom_point(aes(x = roadmap.happiness, y = roadmap.DEEPScore, colour = roadmap.mat_level, shape = org.industry)) 
 
 ```

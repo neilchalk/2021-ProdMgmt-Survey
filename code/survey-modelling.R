@@ -91,6 +91,7 @@ clean_responses$org.TTM = factor(clean_responses$org.TTM, levels = c("Less than 
 clean_responses$org.releases = factor(clean_responses$org.releases, levels =c("More than 12 releases a year","5-12 releases a year","3-4 releases a year","About 2 releases per year", "About 1 release per year", "Less than one release per year", "No release so far"))
 clean_responses$org.prodteamsize = factor(clean_responses$org.prodteamsize, levels = c("< 4","4-9","10-19","20-49","50-249","> 250"))
 clean_responses$org.location = factor(clean_responses$org.location)
+clean_responses$info.sources = factor(clean_responses$info.sources)
 
 clean_responses$roadmap.detailing = factor(clean_responses$roadmap.detailing, levels= c("Next steps are planned ad-hoc and there is no mid- to long term planning. Only short-term planning exists.",
                                                                                         "All tasks are planned and worked out in detail for short-,mid- and long term.",
@@ -205,6 +206,3 @@ clean_responses %>%
 
 
 
-lmDEEPScore2 = lm(clean_responses$roadmap.DEEPScore ~ clean_responses$Product.Strategy + clean_responses$Product.Planning, data = clean_responses, na.action = na.exclude) #Create a linear regression with two variables
-summary(lmDEEPScore2)
-anova(lmDEEPScore2)

@@ -15,8 +15,11 @@ knitr::opts_chunk$set(echo = TRUE)
 What is the make up of the organisations that the respondents are working in?
 
 ```{r org, echo=FALSE}
-summary(clean_responses[3:4])
-summary(clean_responses[5:7])
+library(knitr)
+library(dplyr)
+
+summary(clean_responses[3:4]) %>% kable
+summary(clean_responses[5:7]) %>% kable
 ```
 
 And where are they located?
@@ -32,7 +35,15 @@ clean_responses %>%
   group_by(Job.title) %>%
   summarise(n = n(),
             roadmap.happiness = mean(roadmap.happiness),
-            role.happiness = mean(role.happiness)) 
+            role.happiness = mean(role.happiness))  %>% 
+  kable
+
+lmHappyRole = lm(role.happiness ~ roadmap.DEEPScore , data = clean_responses) 
+ ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
+    geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], colour="#CC0000") +
+    facet_wrap(~Job.title)
+ 
 
 ```
 
@@ -41,7 +52,6 @@ Where do people go to get their information?
 ```{r role2, echo=FALSE}
 clean_responses %>%
   select(Job.title, info.events, info.blogs, info.books, info.communities, info.profbody, info.profcert, info.training, info.vendor, info.google) %>%
-  mutate_if(is.character,as.factor) %>%
   group_by(Job.title) %>%
   summarise("Events and conferences" = sum(info.events)/n()*100,
             "Blogs" = sum(info.blogs)/n()*100,
@@ -51,7 +61,26 @@ clean_responses %>%
             "Professional Certification" = sum(info.profcert)/n()*100,
             "Professional Training" = sum(info.training)/n()*100,
             "Tool Vendor material" = sum(info.vendor)/n()*100,
-            "Google" = sum(info.google)/n()*100)
+            "Google" = sum(info.google)/n()*100)  %>% 
+  kable
+```
+
+Which professional bodies are they members of?
+
+```{r profbdy, echo=FALSE}
+clean_responses %>%
+  select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.none) %>%
+  group_by(Job.title) %>%
+  summarise("ACM" = round(sum(profbody.acm)/n()*100),
+            "AIPMM" = sum(profbody.aipmm)/n()*100,
+            "AMI" = sum(profbody.ami)/n()*100,
+            "APM" = sum(profbody.apm)/n()*100,
+            "BCS" = sum(profbody.bcs)/n()*100,
+            "IAOIP" = sum(profbody.iaoip)/n()*100,
+            "ISPMA" = sum(profbody.ispma)/n()*100,
+            "PDMA" = sum(profbody.pdma)/n()*100,
+            "None" = sum(profbody.none)/n()*100) %>%
+  kable
 ```
 
 ## Roadmap
@@ -63,10 +92,11 @@ clean_responses %>%
   group_by(Job.title) %>%
   summarise(n = n(),
             roadmap.DEEPScore = mean(roadmap.DEEPScore),
-            roadmap.mat_level = mean(roadmap.mat_level)) 
+            roadmap.mat_level = mean(roadmap.mat_level))  %>% 
+  kable
 
 
 ggplot(clean_responses) +
-  geom_point(aes(x = roadmap.happiness, y = roadmap.DEEPScore, colour = roadmap.mat_level, shape = org.industry)) 
+  geom_point(aes(x = roadmap.happiness, y = roadmap.DEEPScore, colour = org.industry, shape = org.employees)) 
 
 ```

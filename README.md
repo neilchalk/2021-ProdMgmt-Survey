@@ -10,7 +10,7 @@ Author affiliations: Open University, [WayFare Travel](http://www.letswayfare.co
 
 This should take no more than 5 to 10 minutes. The survey is hosted on [Google Forms](https://forms.gle/uQ6jiy44jJe7iUZV9).
 
-This survey builds on the previous 2014 study [The Preliminary Results from the Software Product Management State-of-Practice Survey](https://www.researchgate.net/publication/267271367_The_Preliminary_Results_from_the_Software_Product_Management_State-of-Practice_Survey) by Maglyas and Fricker and the [DEEP Product Maturity Model](https://www.researchgate.net/publication/336070112_The_Product_Roadmap_Maturity_Model_DEEP_Validation_of_a_Method_for_Assessing_the_Product_Roadmap_Capabilities_of_Organizations) By Munch, Trieflinger and Lang
+This survey builds on the previous 2014 study [The Preliminary Results from the Software Product Management State-of-Practice Survey](https://www.researchgate.net/publication/267271367_The_Preliminary_Results_from_the_Software_Product_Management_State-of-Practice_Survey) by Maglyas and Fricker and the [DEEP Product Maturity Model](https://www.researchgate.net/publication/336070112_The_Product_Roadmap_Maturity_Model_DEEP_Validation_of_a_Method_for_Assessing_the_Product_Roadmap_Capabilities_of_Organizations) V1.1 By Munch, Trieflinger and Lang. It also uses the dimensions of [the ISPMA v1.3 framework](https://ispma.org/body-of-knowledge/) to define the activities a Software Product Manager may be invovled in.
 
 ## About this repo
 

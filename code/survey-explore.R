@@ -8,15 +8,48 @@
 ## Acknowledgements
 ##  
 ##
-
+library(rpivotTable) 
+library(ggplot2)
+library(dplyr)
 
 ## Begin exploring data
-  lmDEEPScore = lm(clean_responses$roadmap.DEEPScore ~ clean_responses$org.employees + clean_responses$org.TTM + clean_responses$org.releases + clean_responses$org.prodteamsize + clean_responses$org.location, data = clean_responses) #Create a linear regression with two variables
+  lmDEEPScore = lm(roadmap.DEEPScore ~ clean_responses$org.employees + clean_responses$org.TTM + clean_responses$org.releases + clean_responses$org.prodteamsize + clean_responses$org.location, data = clean_responses) #Create a linear regression with two variables
   summary(lmDEEPScore)
   anova(lmDEEPScore)
+  
+  lmDEEPScore2 = lm(roadmap.DEEPScore ~ org.releases + org.TTM + product.b2b + product.b2c, data = clean_responses) #Create a linear regression with two variables
+  summary(lmDEEPScore2)
+  anova(lmDEEPScore2)  
 
+  lmHappyRoadmap = lm(roadmap.happiness ~ org.releases + org.TTM + roadmap.DEEPScore + product.b2b + product.b2c , data = clean_responses) #Create a linear regression with two variables
+  summary(lmHappyRoadmap)
+  anova(lmHappyRoadmap)
 
-
+  # Given early results, role responsibility happiness seems to be an indicator of roadmap maturity
+  lmHappyRole = lm(role.happiness ~ roadmap.DEEPScore , data = clean_responses) #Create a linear regression with two variables
+  summary(lmHappyRole)
+  anova(lmHappyRole)
+  
+  png("../outputs/DEEPscore_vs_roleHappiness.png")
+  myplot <- ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = Job.title)) +
+    geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], aes(colour = red)) 
+  print(myplot)
+  dev.off()
+  
+  plot(lmHappyRole$residuals, pch = 16, col = "red")
+  
+  
+  
+  
+  clean_responses %>%
+    rpivotTable(
+      rows = "Job.title", 
+      cols = "roadmap.DEEPScore",
+      aggregatorName = "Sum", 
+      vals = "roadmap.mat_level", 
+      rendererName = "Col Heatmap")   
+  
 #average happiness with roadmap by job title
 clean_responses %>%
   select(Job.title, roadmap.happiness, role.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
@@ -72,10 +105,6 @@ clean_responses %>%
             "Google" = sum(info.google)/n()*100)
 
 
-
-
-ggplot(clean_responses) +
-  geom_point(aes(x = roadmap.happiness, y = roadmap.DEEPScore, colour = roadmap.mat_level, shape = org.releases)) 
 
 
 ggplot(clean_responses) +

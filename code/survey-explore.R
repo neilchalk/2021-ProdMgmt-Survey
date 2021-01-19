@@ -32,15 +32,18 @@ library(dplyr)
   
   png("../outputs/DEEPscore_vs_roleHappiness.png")
   myplot <- ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
-    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = Job.title)) +
-    geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], aes(colour = red)) 
+    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
+    geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], colour="#CC0000") 
   print(myplot)
   dev.off()
   
   plot(lmHappyRole$residuals, pch = 16, col = "red")
   
   
-  
+  # however, given early results, roadmap happiness does not seem to be an indicator of roadmap maturity
+  lmHappyRoadmap = lm(roadmap.happiness ~ roadmap.DEEPScore , data = clean_responses) #Create a linear regression with two variables
+  summary(lmHappyRoadmap)
+
   
   clean_responses %>%
     rpivotTable(
@@ -104,7 +107,18 @@ clean_responses %>%
             "Tool Vendor material" = sum(info.vendor)/n()*100,
             "Google" = sum(info.google)/n()*100)
 
-
+clean_responses %>%
+  select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.none) %>%
+  group_by(Job.title) %>%
+  summarise("ACM" = round(sum(profbody.acm)/n()*100),
+            "AIPMM" = sum(profbody.aipmm)/n()*100,
+            "AMI" = sum(profbody.ami)/n()*100,
+            "APM" = sum(profbody.apm)/n()*100,
+            "BCS" = sum(profbody.bcs)/n()*100,
+            "IAOIP" = sum(profbody.iaoip)/n()*100,
+            "ISPMA" = sum(profbody.ispma)/n()*100,
+            "PDMA" = sum(profbody.pdma)/n()*100,
+            "None" = sum(profbody.none)/n()*100)
 
 
 ggplot(clean_responses) +

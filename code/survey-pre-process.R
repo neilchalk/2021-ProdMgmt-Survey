@@ -124,6 +124,7 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
 
 #data cleansing from errors in survey setup in Google Forms
   raw_responses[7, 19] = "Mainly customer and business goals, products, features and for the long-term timeframe topics (e.g., smart home)"
+  raw_responses[14, 8] = "Ireland"
   raw_responses <- raw_responses[-29]  #remove old duplicate question
   raw_responses <- raw_responses[-29]  #remove free text questions from this analysis
   raw_responses <- raw_responses[-1]  #remove Timestamp from this analysis

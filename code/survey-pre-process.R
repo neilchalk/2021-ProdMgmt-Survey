@@ -43,6 +43,9 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
   raw_responses[,"profbody.none"] <-  FALSE
   raw_responses[i,"profbody.none"] <-  TRUE
   
+  i = grep("N/A", raw_responses[,3])
+  raw_responses[i,"profbody.none"] <-  TRUE
+  
   i = grep("ACM", raw_responses[,3])
   raw_responses[,"profbody.acm"] <-  FALSE
   raw_responses[i,"profbody.acm"] <-  TRUE

@@ -146,3 +146,18 @@ ggplot(clean_responses, aes(x=org.employees, y=roadmap.DEEPScore)) +
 ggplot(clean_responses, aes(x=role.happiness, y=roadmap.DEEPScore)) + 
   geom_boxplot() + 
   geom_jitter(shape=16, position=position_jitter(0.2)) 
+
+summary(practices)
+
+# appears to be a relationship between having responsibility for market analysis and roadmap maturity 
+lmDEEPPractices = lm(roadmap.DEEPScore ~ sm.marketanalysis , data = practices) #Create a linear regression with two variables
+summary(lmDEEPPractices)
+
+
+practices %>%
+  rpivotTable(
+    rows = "roadmap.DEEPScore", 
+    cols = "sm.marketanalysis",
+    aggregatorName = "Sum", 
+    vals = "roadmap.mat_level", 
+    rendererName = "Col Heatmap")  

@@ -158,7 +158,32 @@ clean_responses$roadmap.ownership = factor(clean_responses$roadmap.ownership, le
 )
 )
 
+practices <- clean_responses %>%
+  select(X, Job.title, role.happiness, roadmap.happiness , roadmap.DEEPScore, roadmap.mat_level, 10:16)  
 
+i = grep("Corporate Strategy", practices[,7])
+practices[,"sm.corpstrat"] <-  FALSE
+practices[i,"sm.corpstrat"] <-  TRUE
 
+i = grep("Portfolio Management", practices[,7])
+practices[,"sm.portfoliomgmt"] <-  FALSE
+practices[i,"sm.portfoliomgmt"] <-  TRUE
 
+i = grep("Innovation Management", practices[,7])
+practices[,"sm.innovationmgmt"] <-  FALSE
+practices[i,"sm.innovationmgmt"] <-  TRUE
+
+i = grep("Resource Management", practices[,7])
+practices[,"sm.resmgmt"] <-  FALSE
+practices[i,"sm.resmgmt"] <-  TRUE
+
+i = grep("Market Analysis", practices[,7])
+practices[,"sm.marketanalysis"] <-  FALSE
+practices[i,"sm.marketanalysis"] <-  TRUE
+
+i = grep("Product Analysis", practices[,7])
+practices[,"sm.prodanalysis"] <-  FALSE
+practices[i,"sm.prodanalysis"] <-  TRUE
+
+practices <- practices[-7]
 

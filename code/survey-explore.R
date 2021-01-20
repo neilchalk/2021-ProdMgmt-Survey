@@ -33,12 +33,18 @@ library(dplyr)
   png("../outputs/DEEPscore_vs_roleHappiness.png")
   myplot <- ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
     geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
-    geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], colour="#CC0000") 
+    geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], colour="#CC0000") +
+    facet_wrap(~Job.title)
   print(myplot)
   dev.off()
   
   plot(lmHappyRole$residuals, pch = 16, col = "red")
   
+  
+  ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
+    geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], colour="#CC0000") +
+    facet_wrap(~org.location)
   
   # however, given early results, roadmap happiness does not seem to be an indicator of roadmap maturity
   lmHappyRoadmap = lm(roadmap.happiness ~ roadmap.DEEPScore , data = clean_responses) #Create a linear regression with two variables
@@ -129,3 +135,14 @@ ggplot(clean_responses) +
 
 ggplot(clean_responses) +
   geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(x = org.prodteamsize, y = roadmap.DEEPScore, colour = roadmap.happiness, shape = org.releases))
+
+
+
+ggplot(clean_responses, aes(x=org.employees, y=roadmap.DEEPScore)) + 
+  geom_boxplot() + 
+  geom_jitter(shape=16, position=position_jitter(0.2))
+
+
+ggplot(clean_responses, aes(x=role.happiness, y=roadmap.DEEPScore)) + 
+  geom_boxplot() + 
+  geom_jitter(shape=16, position=position_jitter(0.2)) 

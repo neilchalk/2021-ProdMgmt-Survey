@@ -260,3 +260,30 @@ practices[,"dev.qual"] <-  FALSE
 practices[i,"dev.qual"] <-  TRUE
 
 practices <- practices[-7]
+
+i = grep("Marketing planning", practices[,7])
+practices[,"mar.plan"] <-  FALSE
+practices[i,"mar.plan"] <-  TRUE
+
+i = grep("Customer analysis", practices[,7])
+practices[,"mar.cust"] <-  FALSE
+practices[i,"mar.cust"] <-  TRUE
+
+i = grep("Opportunity Management", practices[,7])
+practices[,"mar.oppomgmt"] <-  FALSE
+practices[i,"mar.oppomgmt"] <-  TRUE
+
+i = grep("Marketing mix optimisation", practices[,7])
+practices[,"mar.mix"] <-  FALSE
+practices[i,"mar.mix"] <-  TRUE
+
+i = grep("Product launches (GTM)", practices[,7])
+practices[,"mar.gtm"] <-  FALSE
+practices[i,"mar.gtm"] <-  TRUE
+
+i = grep("Operational marketing", practices[,7])
+practices[,"mar.ops"] <-  FALSE
+practices[i,"mar.ops"] <-  TRUE
+
+
+practices <- practices[-7]

@@ -221,6 +221,9 @@ summary(lmDEEPPlanPractices)
 
 plot(lmDEEPPlanPractices$residuals, pch = 16, col = "red")
 
+ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) + 
+  geom_boxplot() + 
+  geom_jitter(shape=16, position=position_jitter(0.2)) 
 
           practices %>%
             select(roadmap.mat_level, dev.engmgmt,dev.projmgmt, dev.projRE, dev.ux, dev.qual ) %>%
@@ -230,11 +233,53 @@ plot(lmDEEPPlanPractices$residuals, pch = 16, col = "red")
                       "Project requirements engineering" = sum(dev.projRE)/n()*100,
                       "User experience design" = sum(dev.ux)/n()*100,
                       "Quality Management" = sum(dev.qual)/n()*100)
-          
-          # appears to be a relationship between having responsibility for "Engineering Management"  and roadmap maturity 
+        
+            # appears to be a negative relationship between having responsibility for "Engineering Management"  and roadmap maturity 
           lmDEEPDevPractices = lm(roadmap.DEEPScore ~ dev.engmgmt , data = practices) #Create a linear regression with two variables
+          summary(lmDEEPDevPractices)
+          
+          #remove non_PM jobs to see impact
+          pm.practices <-      practices %>%
+            select(roadmap.DEEPScore, Job.title, roadmap.mat_level, dev.engmgmt,dev.projmgmt, dev.projRE, dev.ux, dev.qual ) %>%
+            filter(grepl('Product', Job.title)) 
+          
+          # still appears to be a negative relationship between having responsibility for "Engineering Management"  and roadmap maturity 
+          lmDEEPDevPractices = lm(roadmap.DEEPScore ~ dev.engmgmt , data = pm.practices) #Create a linear regression with two variables
           summary(lmDEEPDevPractices)
           
           plot(lmDEEPDevPractices$residuals, pch = 16, col = "red")
           
-         
+          ggplot(practices, aes(x=dev.engmgmt, y=roadmap.DEEPScore)) + 
+            geom_boxplot() + 
+            geom_jitter(shape=16, position=position_jitter(0.2)) 
+
+
+          
+          practices %>%
+            select(roadmap.mat_level, mar.plan,mar.cust, mar.oppomgmt, mar.mix, mar.gtm,mar.ops ) %>%
+            group_by(roadmap.mat_level) %>%
+            summarise("Marketing planning" = sum(mar.plan)/n()*100,
+                      "Customer analysis" = sum(mar.cust)/n()*100,
+                      "Opportunity Management" = sum(mar.oppomgmt)/n()*100,
+                      "Marketing mix optimisation" = sum(mar.mix)/n()*100,
+                      "Product launches (GTM)" = sum(mar.gtm)/n()*100,
+                      "Operational marketing" = sum(mar.ops)/n()*100)
+          
+          # appears to be no relationships with marketing responsibilities and roadmap maturity 
+          lmDEEPMarPractices = lm(roadmap.DEEPScore ~ mar.plan * mar.mix  , data = practices) #Create a linear regression with two variables
+          summary(lmDEEPMarPractices)
+          
+          #remove non_PM jobs to see impact
+          pm.practices <-      practices %>%
+            select(roadmap.DEEPScore, Job.title, roadmap.mat_level, mar.plan,mar.cust, mar.oppomgmt, mar.mix, mar.gtm,mar.ops ) %>%
+            filter(grepl('Product', Job.title)) 
+          
+          # appears to be no relationships with marketing responsibilities and roadmap maturity 
+          lmDEEPMarPractices = lm(roadmap.DEEPScore ~ mar.plan * mar.mix , data = pm.practices) #Create a linear regression with two variables
+          summary(lmDEEPMarPractices)
+          
+          plot(lmDEEPMarPractices$residuals, pch = 16, col = "red")
+          
+          ggplot(practices, aes(x=mar.mix, y=roadmap.DEEPScore)) + 
+            geom_boxplot() + 
+            geom_jitter(shape=16, position=position_jitter(0.2))           

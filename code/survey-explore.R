@@ -204,5 +204,19 @@ practices %>%
 # appears to be a relationship between having responsibility for "Business case and costing" and roadmap maturity 
 lmDEEPProdPractices = lm(roadmap.DEEPScore ~ ps.bizcase , data = practices) #Create a linear regression with two variables
 summary(lmDEEPProdPractices)
+plot(lmDEEPProdPractices$residuals, pch = 16, col = "red")
 
 
+practices %>%
+  select(roadmap.mat_level, pp.lifecycle, pp.roadmapping,pp.releaseplanning, pp.prodRE, pp.none) %>%
+  group_by(roadmap.mat_level) %>%
+  summarise("Product life-cycle management" = sum(pp.lifecycle)/n()*100,
+            "Roadmapping" = sum(pp.roadmapping)/n()*100,
+            "Release planning" = sum(pp.releaseplanning)/n()*100,
+            "Product requirements engineering" = sum(pp.prodRE)/n()*100)
+
+# appears to be a relationship between having responsibility for "Release planning" and roadmap maturity 
+lmDEEPPlanPractices = lm(roadmap.DEEPScore ~ pp.releaseplanning , data = practices) #Create a linear regression with two variables
+summary(lmDEEPPlanPractices)
+
+plot(lmDEEPPlanPractices$residuals, pch = 16, col = "red")

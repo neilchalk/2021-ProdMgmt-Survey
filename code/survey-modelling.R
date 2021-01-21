@@ -220,3 +220,21 @@ practices[,"ps.perfandrisk"] <-  FALSE
 practices[i,"ps.perfandrisk"] <-  TRUE
 
 practices <- practices[-7]
+
+i = grep("Product life-cycle management", practices[,7])
+practices[,"pp.lifecycle"] <-  FALSE
+practices[i,"pp.lifecycle"] <-  TRUE
+
+i = grep("Roadmapping", practices[,7])
+practices[,"pp.roadmapping"] <-  FALSE
+practices[i,"pp.roadmapping"] <-  TRUE
+
+i = grep("Release planning", practices[,7])
+practices[,"pp.releaseplanning"] <-  FALSE
+practices[i,"pp.releaseplanning"] <-  TRUE
+
+i = grep("Product requirements engineering", practices[,7])
+practices[,"pp.prodRE"] <-  FALSE
+practices[i,"pp.prodRE"] <-  TRUE
+
+practices <- practices[-7]

@@ -187,3 +187,36 @@ practices[i,"sm.prodanalysis"] <-  TRUE
 
 practices <- practices[-7]
 
+i = grep("Positioning and product definition", practices[,7])
+practices[,"ps.position"] <-  FALSE
+practices[i,"ps.position"] <-  TRUE
+
+i = grep("Delivery model & Service strategy", practices[,7])
+practices[,"ps.deliverymodel"] <-  FALSE
+practices[i,"ps.deliverymodel"] <-  TRUE
+
+i = grep("Sourcing", practices[,7])
+practices[,"ps.sourcing"] <-  FALSE
+practices[i,"ps.sourcing"] <-  TRUE
+
+i = grep("Business case and costing", practices[,7])
+practices[,"ps.bizcase"] <-  FALSE
+practices[i,"ps.bizcase"] <-  TRUE
+
+i = grep("Pricing", practices[,7])
+practices[,"ps.pricing"] <-  FALSE
+practices[i,"ps.pricing"] <-  TRUE
+
+i = grep("Ecosystem management", practices[,7])
+practices[,"ps.ecosystem"] <-  FALSE
+practices[i,"ps.ecosystem"] <-  TRUE
+
+i = grep("Legal & PR management", practices[,7])
+practices[,"ps.legalandpr"] <-  FALSE
+practices[i,"ps.legalandpr"] <-  TRUE
+
+i = grep("Performance & Risk management", practices[,7])
+practices[,"ps.perfandrisk"] <-  FALSE
+practices[i,"ps.perfandrisk"] <-  TRUE
+
+practices <- practices[-7]

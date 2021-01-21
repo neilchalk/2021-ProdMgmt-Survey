@@ -40,6 +40,9 @@ library(dplyr)
   
   plot(lmHappyRole$residuals, pch = 16, col = "red")
   
+  ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
+    geom_smooth(method=lm)
   
   ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
     geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
@@ -149,15 +152,57 @@ ggplot(clean_responses, aes(x=role.happiness, y=roadmap.DEEPScore)) +
 
 summary(practices)
 
+practices %>%
+  select(Job.title, sm.corpstrat, sm.portfoliomgmt, sm.innovationmgmt, sm.resmgmt, sm.marketanalysis, sm.prodanalysis) %>%
+  group_by(Job.title) %>%
+  summarise("Corporate Strategy" = round(sum(sm.corpstrat)/n()*100),
+            "Portfolio Management" = sum(sm.portfoliomgmt)/n()*100,
+            "Innovation Management" = sum(sm.innovationmgmt)/n()*100,
+            "Resource Management" = sum(sm.resmgmt)/n()*100,
+            "Market Analysis" = sum(sm.marketanalysis)/n()*100,
+            "Product Analysis" = sum(sm.prodanalysis)/n()*100)
+
 # appears to be a relationship between having responsibility for market analysis and roadmap maturity 
 lmDEEPPractices = lm(roadmap.DEEPScore ~ sm.marketanalysis , data = practices) #Create a linear regression with two variables
 summary(lmDEEPPractices)
+
+ggplot(practices) +
+  geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(y = sm.corpstrat, x = roadmap.DEEPScore)) 
+  ggplot(practices) +  geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(y = sm.portfoliomgmt, x = roadmap.DEEPScore)) 
+  ggplot(practices) +  geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(y = sm.innovationmgmt, x = roadmap.DEEPScore)) 
+  ggplot(practices) +  geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(y = sm.resmgmt, x = roadmap.DEEPScore)) 
+  ggplot(practices) +  geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(y = sm.marketanalysis, x = roadmap.DEEPScore)) 
+  ggplot(practices) +  geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(y = sm.prodanalysis, x = roadmap.DEEPScore))
+
+
+  ggplot(practices, aes(x=sm.marketanalysis, y=roadmap.DEEPScore)) + 
+    geom_boxplot() + 
+    geom_jitter(shape=16, position=position_jitter(0.2)) 
 
 
 practices %>%
   rpivotTable(
     rows = "roadmap.DEEPScore", 
     cols = "sm.marketanalysis",
-    aggregatorName = "Sum", 
+    aggregatorName = "Count", 
     vals = "roadmap.mat_level", 
     rendererName = "Col Heatmap")  
+
+
+practices %>%
+  select(roadmap.mat_level, ps.position, ps.deliverymodel, ps.sourcing, ps.bizcase, ps.pricing, ps.ecosystem, ps.legalandpr, ps.perfandrisk) %>%
+  group_by(roadmap.mat_level) %>%
+  summarise("Positioning and product definition" = sum(ps.position)/n()*100,
+            "Delivery model & Service strategy" = sum(ps.deliverymodel)/n()*100,
+            "Sourcing" = sum(ps.sourcing)/n()*100,
+            "Business case and costing" = sum(ps.bizcase)/n()*100,
+            "Pricing" = sum(ps.pricing)/n()*100,
+            "Ecosystem management" = sum(ps.ecosystem)/n()*100,
+            "Legal & PR management" = sum(ps.legalandpr)/n()*100,
+            "Performance & Risk management" = sum(ps.perfandrisk)/n()*100)
+
+# appears to be a relationship between having responsibility for "Business case and costing" and roadmap maturity 
+lmDEEPProdPractices = lm(roadmap.DEEPScore ~ ps.bizcase , data = practices) #Create a linear regression with two variables
+summary(lmDEEPProdPractices)
+
+

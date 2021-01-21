@@ -208,7 +208,7 @@ plot(lmDEEPProdPractices$residuals, pch = 16, col = "red")
 
 
 practices %>%
-  select(roadmap.mat_level, pp.lifecycle, pp.roadmapping,pp.releaseplanning, pp.prodRE, pp.none) %>%
+  select(roadmap.mat_level, pp.lifecycle, pp.roadmapping,pp.releaseplanning, pp.prodRE) %>%
   group_by(roadmap.mat_level) %>%
   summarise("Product life-cycle management" = sum(pp.lifecycle)/n()*100,
             "Roadmapping" = sum(pp.roadmapping)/n()*100,
@@ -220,3 +220,21 @@ lmDEEPPlanPractices = lm(roadmap.DEEPScore ~ pp.releaseplanning , data = practic
 summary(lmDEEPPlanPractices)
 
 plot(lmDEEPPlanPractices$residuals, pch = 16, col = "red")
+
+
+          practices %>%
+            select(roadmap.mat_level, dev.engmgmt,dev.projmgmt, dev.projRE, dev.ux, dev.qual ) %>%
+            group_by(roadmap.mat_level) %>%
+            summarise("Engineering Management" = sum(dev.engmgmt)/n()*100,
+                      "Project Management" = sum(dev.projmgmt)/n()*100,
+                      "Project requirements engineering" = sum(dev.projRE)/n()*100,
+                      "User experience design" = sum(dev.ux)/n()*100,
+                      "Quality Management" = sum(dev.qual)/n()*100)
+          
+          # appears to be a relationship between having responsibility for "Engineering Management"  and roadmap maturity 
+          lmDEEPDevPractices = lm(roadmap.DEEPScore ~ dev.engmgmt , data = practices) #Create a linear regression with two variables
+          summary(lmDEEPDevPractices)
+          
+          plot(lmDEEPDevPractices$residuals, pch = 16, col = "red")
+          
+         

@@ -238,3 +238,25 @@ practices[,"pp.prodRE"] <-  FALSE
 practices[i,"pp.prodRE"] <-  TRUE
 
 practices <- practices[-7]
+
+i = grep("Engineering Management", practices[,7])
+practices[,"dev.engmgmt"] <-  FALSE
+practices[i,"dev.engmgmt"] <-  TRUE
+
+i = grep("Project Management", practices[,7])
+practices[,"dev.projmgmt"] <-  FALSE
+practices[i,"dev.projmgmt"] <-  TRUE
+
+i = grep("Project requirements engineering", practices[,7])
+practices[,"dev.projRE"] <-  FALSE
+practices[i,"dev.projRE"] <-  TRUE
+
+i = grep("User experience design", practices[,7])
+practices[,"dev.ux"] <-  FALSE
+practices[i,"dev.ux"] <-  TRUE
+
+i = grep("Quality Management", practices[,7])
+practices[,"dev.qual"] <-  FALSE
+practices[i,"dev.qual"] <-  TRUE
+
+practices <- practices[-7]

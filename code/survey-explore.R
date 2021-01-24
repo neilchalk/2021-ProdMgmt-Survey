@@ -41,6 +41,11 @@ library(dplyr)
   plot(lmHappyRole$residuals, pch = 16, col = "red")
   
   ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = Job.title))  +
+    geom_smooth(method=lm) +
+    facet_wrap(~org.employees)
+  
+  ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
     geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
     geom_smooth(method=lm)
   

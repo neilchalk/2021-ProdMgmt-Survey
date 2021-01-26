@@ -48,5 +48,12 @@ render("survey-visulisation.Rmd", "all", output_dir = "../outputs")
 
 summary(clean_responses[18:26])
 
+matched <- NULL
+countries_responded <- NULL
+myplot <- NULL
 
+prod_responses <- clean_responses %>%
+  filter(grepl('Product', Job.title)) 
 
+nonprod_responses <- clean_responses %>%
+  filter(!grepl('Product', Job.title)) 

@@ -287,3 +287,5 @@ practices[i,"mar.ops"] <-  TRUE
 
 
 practices <- practices[-7]
+
+

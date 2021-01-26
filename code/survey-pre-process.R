@@ -78,6 +78,11 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
   raw_responses[,"profbody.pdma"] <-  FALSE
   raw_responses[i,"profbody.pdma"] <-  TRUE
   
+  i = grep("Mind the product", raw_responses[,3], ignore.case = TRUE)
+  raw_responses[,"profbody.MTP"] <-  FALSE
+  raw_responses[i,"profbody.MTP"] <-  TRUE
+  
+  
   raw_responses <- raw_responses[-3] #closed question so remove original column
 
 ####### split out the info sources
@@ -143,9 +148,8 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
 
 #Outlier Analysis and Treatment
 
-  #remove non-"product" responses
-  raw_responses <- raw_responses[-12,]
-  raw_responses <- raw_responses[-3,]
 
 #et voila, ready for modelling and visulisation 
   write.csv(raw_responses, file = "../data/2021-prdmgmt-survey-clean.csv")
+  
+  raw_responses <- NULL

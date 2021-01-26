@@ -3,7 +3,7 @@
 ##    survey-modelling.R to load and build the data model.
 ##
 ##    This is a script to run various explorations of the data to then feed into the model and visualisations.
-##    The code below represents hypothesises of factors that could be correlations in the data
+##    The code below represents various hypothesis of factors that could be correlations in the data
 ##
 ## Acknowledgements
 ##  
@@ -13,7 +13,7 @@ library(ggplot2)
 library(dplyr)
 
 ## Begin exploring data
-  lmDEEPScore = lm(roadmap.DEEPScore ~ clean_responses$org.employees + clean_responses$org.TTM + clean_responses$org.releases + clean_responses$org.prodteamsize + clean_responses$org.location, data = clean_responses) #Create a linear regression with two variables
+  lmDEEPScore = lm(roadmap.DEEPScore ~ org.employees + org.TTM + org.releases + org.prodteamsize + org.location, data = clean_responses) #Create a linear regression with two variables
   summary(lmDEEPScore)
   anova(lmDEEPScore)
   
@@ -26,12 +26,12 @@ library(dplyr)
   anova(lmHappyRoadmap)
 
   # Given early results, role responsibility happiness seems to be an indicator of roadmap maturity
-  lmHappyRole = lm(role.happiness ~ roadmap.DEEPScore , data = clean_responses) #Create a linear regression with two variables
+  lmHappyRole = lm(role.happiness ~ roadmap.DEEPScore , data = prod_responses) #Create a linear regression with two variables
   summary(lmHappyRole)
   anova(lmHappyRole)
   
   png("../outputs/DEEPscore_vs_roleHappiness.png")
-  myplot <- ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+  myplot <- ggplot(prod_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
     geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
     geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], colour="#CC0000") +
     facet_wrap(~Job.title)
@@ -40,24 +40,27 @@ library(dplyr)
   
   plot(lmHappyRole$residuals, pch = 16, col = "red")
   
-  ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+  ggplot(prod_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
     geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = Job.title))  +
     geom_smooth(method=lm) +
     facet_wrap(~org.employees)
   
-  ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+  ggplot(prod_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
     geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
     geom_smooth(method=lm)
   
-  ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+  ggplot(prod_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
     geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
     geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], colour="#CC0000") +
     facet_wrap(~org.location)
   
-  # however, given early results, roadmap happiness does not seem to be an indicator of roadmap maturity
-  lmHappyRoadmap = lm(roadmap.happiness ~ roadmap.DEEPScore , data = clean_responses) #Create a linear regression with two variables
+  # given early results, roadmap happiness does seem to be an indicator of roadmap maturity with product roles
+  lmHappyRoadmap = lm(roadmap.happiness ~ roadmap.DEEPScore , data = prod_responses) #Create a linear regression with two variables
   summary(lmHappyRoadmap)
-
+  
+  # given early results, roadmap happiness does not seem to be an indicator of roadmap maturity with non-prod roles
+  lmHappyRoadmap = lm(roadmap.happiness ~ roadmap.DEEPScore , data = nonprod_responses) #Create a linear regression with two variables
+  summary(lmHappyRoadmap)
   
   clean_responses %>%
     rpivotTable(
@@ -121,8 +124,8 @@ clean_responses %>%
             "Tool Vendor material" = sum(info.vendor)/n()*100,
             "Google" = sum(info.google)/n()*100)
 
-clean_responses %>%
-  select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.none) %>%
+prod_responses %>%
+  select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.none) %>%
   group_by(Job.title) %>%
   summarise("ACM" = round(sum(profbody.acm)/n()*100),
             "AIPMM" = sum(profbody.aipmm)/n()*100,
@@ -132,8 +135,22 @@ clean_responses %>%
             "IAOIP" = sum(profbody.iaoip)/n()*100,
             "ISPMA" = sum(profbody.ispma)/n()*100,
             "PDMA" = sum(profbody.pdma)/n()*100,
+            "MTP" = sum(profbody.MTP)/n()*100,
             "None" = sum(profbody.none)/n()*100)
 
+nonprod_responses %>%
+  select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.none) %>%
+  group_by(Job.title) %>%
+  summarise("ACM" = round(sum(profbody.acm)/n()*100),
+            "AIPMM" = sum(profbody.aipmm)/n()*100,
+            "AMI" = sum(profbody.ami)/n()*100,
+            "APM" = sum(profbody.apm)/n()*100,
+            "BCS" = sum(profbody.bcs)/n()*100,
+            "IAOIP" = sum(profbody.iaoip)/n()*100,
+            "ISPMA" = sum(profbody.ispma)/n()*100,
+            "PDMA" = sum(profbody.pdma)/n()*100,
+            "MTP" = sum(profbody.MTP)/n()*100,
+            "None" = sum(profbody.none)/n()*100)
 
 ggplot(clean_responses) +
   geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(x = org.employees, y = roadmap.DEEPScore, colour = roadmap.happiness, shape = org.releases)) 
@@ -288,3 +305,10 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
           ggplot(practices, aes(x=mar.mix, y=roadmap.DEEPScore)) + 
             geom_boxplot() + 
             geom_jitter(shape=16, position=position_jitter(0.2))           
+          
+          
+    #take a look at the typical makeup of org and prod team size in the respondents      
+          
+          ggplot(clean_responses, aes(x=org.employees, y=org.prodteamsize)) + 
+            geom_jitter(shape=16, position=position_jitter(0.2)) +
+            facet_wrap(~org.location)          

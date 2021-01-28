@@ -16,11 +16,11 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
   
   #split out the product types worked on
   raw_responses <- raw_responses[-2]
-  i = grep("B2B SaaS", raw_responses[,5])
+  i = grep("B2B", raw_responses[,5])
   raw_responses[,"product.b2b"] <-  FALSE
   raw_responses[i,"product.b2b"] <-  TRUE
   
-  i = grep("B2c SaaS", raw_responses[,5])
+  i = grep("B2c", raw_responses[,5])
   raw_responses[,"product.b2c"] <-  FALSE
   raw_responses[i,"product.b2c"] <-  TRUE
   
@@ -44,6 +44,9 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
   raw_responses[i,"profbody.none"] <-  TRUE
   
   i = grep("N/A", raw_responses[,3])
+  raw_responses[i,"profbody.none"] <-  TRUE
+  
+  i = grep("None", raw_responses[,3])
   raw_responses[i,"profbody.none"] <-  TRUE
   
   i = grep("ACM", raw_responses[,3])
@@ -122,7 +125,17 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
   i = grep("Google", raw_responses[,28])
   raw_responses[,"info.google"] <-  FALSE
   raw_responses[i,"info.google"] <-  TRUE
+  
+  i = grep("network", raw_responses[,28], ignore.case = TRUE)
+  raw_responses[,"info.network"] <-  FALSE
+  raw_responses[i,"info.network"] <-  TRUE
 
+  i = grep("friend", raw_responses[,28], ignore.case = TRUE)
+  raw_responses[i,"info.network"] <-  TRUE
+  
+  i = grep("colleagues", raw_responses[,28], ignore.case = TRUE)
+  raw_responses[i,"info.network"] <-  TRUE
+  
 #raw_responses <- raw_responses[-28]
 
 

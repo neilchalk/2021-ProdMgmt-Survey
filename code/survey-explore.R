@@ -312,3 +312,19 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
           ggplot(clean_responses, aes(x=org.employees, y=org.prodteamsize)) + 
             geom_jitter(shape=16, position=position_jitter(0.2)) +
             facet_wrap(~org.location)          
+          
+## TOOLS
+          
+          lmDEEPTools = lm(roadmap.DEEPScore ~ custom * office * product * project , data = tools) #Create a linear regression with two variables
+          summary(lmDEEPTools)
+          
+          #plot(lmDEEPTools$residuals, pch = 16, col = "red")
+          
+          
+          #apears to be a negative relationship with just office/project tools but positive with both
+          pm.tools <-      tools %>%
+             filter(!grepl('Product', Job.title)) 
+          
+          lmDEEPProdTools = lm(roadmap.DEEPScore ~ office * project , data = pm.tools) #Create a linear regression with two variables
+          summary(lmDEEPProdTools)
+          

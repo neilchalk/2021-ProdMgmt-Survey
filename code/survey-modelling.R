@@ -288,4 +288,56 @@ practices[i,"mar.ops"] <-  TRUE
 
 practices <- practices[-7]
 
+tools <- clean_responses %>%
+  select(X, Job.title, role.happiness, roadmap.happiness , roadmap.DEEPScore, roadmap.mat_level, roadmap.tools)
 
+# group all the office products
+i = grep("Excel", tools[,7])
+tools[,"office"] <-  FALSE
+tools[i,"office"] <-  TRUE
+i = grep("Sheets", tools[,7])
+tools[i,"office"] <-  TRUE
+i = grep("PowerPoint", tools[,7])
+tools[i,"office"] <-  TRUE
+
+# group all the product/roadmap products
+i = grep("ProdPad", tools[,7])
+tools[,"product"] <-  FALSE
+tools[i,"product"] <-  TRUE
+i = grep("Pendo", tools[,7])
+tools[i,"product"] <-  TRUE
+i = grep("Productboard", tools[,7])
+tools[i,"product"] <-  TRUE
+i = grep("ProductPlan", tools[,7])
+tools[i,"product"] <-  TRUE
+i = grep("Roadmunk", tools[,7])
+tools[i,"product"] <-  TRUE
+i = grep("Accolade", tools[,7])
+tools[i,"product"] <-  TRUE
+i = grep("IntraPRO", tools[,7])
+tools[i,"product"] <-  TRUE
+i = grep("AHA", tools[,7])
+tools[i,"product"] <-  TRUE
+i = grep("roadmap", tools[,7], ignore.case = TRUE)
+tools[i,"product"] <-  TRUE
+
+
+# group all the project management products
+i = grep("Proje[ck]t", tools[,7])
+tools[,"project"] <-  FALSE
+tools[i,"project"] <-  TRUE
+i = grep("Jira", tools[,7])
+tools[i,"project"] <-  TRUE
+i = grep("Planview", tools[,7])
+tools[i,"project"] <-  TRUE
+
+# group all the custom/in-house solutions 
+i = grep("Own platform", tools[,7])
+tools[,"custom"] <-  FALSE
+tools[i,"custom"] <-  TRUE
+i = grep("in house solution", tools[,7])
+tools[i,"custom"] <-  TRUE
+i = grep("In-house solution", tools[,7])
+tools[i,"custom"] <-  TRUE
+
+#tools <- tools[-7]

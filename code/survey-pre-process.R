@@ -28,11 +28,15 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
   raw_responses[,"product.mobile"] <-  FALSE
   raw_responses[i,"product.mobile"] <-  TRUE
   
+  i = grep("Web", raw_responses[,5], ignore.case = TRUE)
+  raw_responses[,"product.web"] <-  FALSE
+  raw_responses[i,"product.web"] <-  TRUE
+  
   i = grep("Desktop", raw_responses[,5])
   raw_responses[,"product.Desktop"] <-  FALSE
   raw_responses[i,"product.Desktop"] <-  TRUE
   
-  i = grep("Service", raw_responses[,5])
+  i = grep("Service", raw_responses[,5], ignore.case = TRUE)
   raw_responses[,"product.Service"] <-  FALSE
   raw_responses[i,"product.Service"] <-  TRUE
   

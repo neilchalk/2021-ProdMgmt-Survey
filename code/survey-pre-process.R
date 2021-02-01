@@ -89,6 +89,9 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
   raw_responses[,"profbody.MTP"] <-  FALSE
   raw_responses[i,"profbody.MTP"] <-  TRUE
   
+  i = grep("Women in product", raw_responses[,3], ignore.case = TRUE)
+  raw_responses[,"profbody.WiP"] <-  FALSE
+  raw_responses[i,"profbody.WiP"] <-  TRUE
   
   raw_responses <- raw_responses[-3] #closed question so remove original column
 
@@ -109,6 +112,10 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
   i = grep("Online", raw_responses[,28])
   raw_responses[,"info.communities"] <-  FALSE
   raw_responses[i,"info.communities"] <-  TRUE
+  i = grep("twitter", raw_responses[,28], ignore.case = TRUE)
+  raw_responses[i,"info.communities"] <-  TRUE
+  i = grep("newsletter", raw_responses[,28], ignore.case = TRUE)
+  raw_responses[i,"info.communities"] <-  TRUE
   
   i = grep("body", raw_responses[,28])
   raw_responses[,"info.profbody"] <-  FALSE
@@ -122,7 +129,7 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
   raw_responses[,"info.training"] <-  FALSE
   raw_responses[i,"info.training"] <-  TRUE
   
-  i = grep("tool", raw_responses[,28])
+  i = grep("Tool", raw_responses[,28])
   raw_responses[,"info.vendor"] <-  FALSE
   raw_responses[i,"info.vendor"] <-  TRUE
   

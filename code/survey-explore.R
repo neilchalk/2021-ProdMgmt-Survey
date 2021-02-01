@@ -118,14 +118,14 @@ clean_responses %>%
             "Blogs" = sum(info.blogs)/n()*100,
             "Books" = sum(info.books)/n()*100,
             "Online Communities" = sum(info.communities)/n()*100,
-            "Professional Bodies" = sum(info.profbody)/n()*100,
-            "Professional Certification" = sum(info.profcert)/n()*100,
-            "Professional Training" = sum(info.training)/n()*100,
-            "Tool Vendor material" = sum(info.vendor)/n()*100,
+            "Prof Bodies" = sum(info.profbody)/n()*100,
+            "Prof Certification" = sum(info.profcert)/n()*100,
+            "Prof Training" = sum(info.training)/n()*100,
+            "Tool Vendors" = sum(info.vendor)/n()*100,
             "Google" = sum(info.google)/n()*100)
 
 prod_responses %>%
-  select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.none) %>%
+  select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.WiP, profbody.none) %>%
   group_by(Job.title) %>%
   summarise("ACM" = round(sum(profbody.acm)/n()*100),
             "AIPMM" = sum(profbody.aipmm)/n()*100,
@@ -136,10 +136,11 @@ prod_responses %>%
             "ISPMA" = sum(profbody.ispma)/n()*100,
             "PDMA" = sum(profbody.pdma)/n()*100,
             "MTP" = sum(profbody.MTP)/n()*100,
+            "WiP" = sum(profbody.WiP)/n()*100,
             "None" = sum(profbody.none)/n()*100)
 
 nonprod_responses %>%
-  select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.none) %>%
+  select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.WiP, profbody.none) %>%
   group_by(Job.title) %>%
   summarise("ACM" = round(sum(profbody.acm)/n()*100),
             "AIPMM" = sum(profbody.aipmm)/n()*100,
@@ -150,6 +151,7 @@ nonprod_responses %>%
             "ISPMA" = sum(profbody.ispma)/n()*100,
             "PDMA" = sum(profbody.pdma)/n()*100,
             "MTP" = sum(profbody.MTP)/n()*100,
+            "WiP" = sum(profbody.WiP)/n()*100,
             "None" = sum(profbody.none)/n()*100)
 
 ggplot(clean_responses) +

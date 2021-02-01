@@ -330,6 +330,8 @@ i = grep("Jira", tools[,7])
 tools[i,"project"] <-  TRUE
 i = grep("Planview", tools[,7])
 tools[i,"project"] <-  TRUE
+i = grep("Trello", tools[,7], ignore.case = TRUE)
+tools[i,"project"] <-  TRUE
 
 # group all the custom/in-house solutions 
 i = grep("Own platform", tools[,7])

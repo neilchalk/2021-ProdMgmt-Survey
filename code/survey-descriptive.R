@@ -18,12 +18,16 @@ if (!require("ggflags")) {
 }
 library(rmarkdown)
 
+
+
 countries_responded <- clean_responses %>%
   select(country = org.location) %>%
   group_by(country) %>%
   summarise(value = n())
   
-matched <- joinCountryData2Map(countries_responded, joinCode="NAME", nameJoinColumn="country")
+matched <- joinCountryData2Map(countries_responded, joinCode="NAME", nameJoinColumn="country", verbose = TRUE) 
+
+
 
 # make png of the map
 png(file = "../outputs/ResponsesMap.png",
@@ -31,13 +35,14 @@ png(file = "../outputs/ResponsesMap.png",
 par(mai=c(0,0,0.2,0))
 mapCountryData(matched,
                nameColumnToPlot="value",
-               mapTitle= "",
+               mapTitle= "Location of respondents",
                catMethod = "logFixedWidth",
                colourPalette = "heat",
                oceanCol="lightblue",
                missingCountryCol="white",
                addLegend = FALSE,
                lwd = 1)
+
 dev.off()
 
 

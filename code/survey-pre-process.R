@@ -157,6 +157,7 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
 #data cleansing from errors in survey setup in Google Forms
   raw_responses[7, 19] = "Mainly customer and business goals, products, features and for the long-term timeframe topics (e.g., smart home)"
   raw_responses[14, 8] = "Ireland"
+  raw_responses[65, 8] = "Antigua and Barbuda"
   raw_responses[42, "Job.title"] = "CTO"
   raw_responses <- raw_responses[-29]  #remove old duplicate question
   raw_responses <- raw_responses[-29]  #remove free text questions from this analysis
@@ -171,7 +172,7 @@ raw_responses <- read.csv("../data/2021 Product Management Survey.csv")
 
 
 #Outlier Analysis and Treatment
-
+  raw_responses <- raw_responses[-66,]  #remove duplicate entry from this analysis
 
 #et voila, ready for modelling and visulisation 
   write.csv(raw_responses, file = "../data/2021-prdmgmt-survey-clean.csv")

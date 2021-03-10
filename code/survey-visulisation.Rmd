@@ -28,7 +28,7 @@ And where are they located?
 
 ## Role
 
-How happy were the respondents with their roadmap process and level of responsibilty in the role?
+How happy were the respondents with their roadmap process and level of responsibility in the role?
 ```{r role, echo=FALSE}
 clean_responses %>%
   select(Job.title, roadmap.happiness, role.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
@@ -36,7 +36,7 @@ clean_responses %>%
   summarise(n = n(),
             roadmap.happiness = mean(roadmap.happiness),
             role.happiness = mean(role.happiness))  %>% 
-  kable
+  kable(digits = 2)
 
 lmHappyRole = lm(role.happiness ~ roadmap.DEEPScore , data = clean_responses) 
  ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
@@ -62,7 +62,7 @@ clean_responses %>%
             "Professional Training" = sum(info.training)/n()*100,
             "Tool Vendor material" = sum(info.vendor)/n()*100,
             "Google" = sum(info.google)/n()*100)  %>% 
-  kable
+  kable(digits = 2)
 ```
 
 Which professional bodies are they members of?
@@ -80,12 +80,13 @@ clean_responses %>%
             "ISPMA" = sum(profbody.ispma)/n()*100,
             "PDMA" = sum(profbody.pdma)/n()*100,
             "None" = sum(profbody.none)/n()*100) %>%
-  kable
+  kable(digits = 2)
 ```
 
 ## Roadmap
 
 How mature were the roadmap processes by job title of respondent? Also did happiness with the roadmap process lead to a higher maturity score?
+
 ```{r roadmap, echo=FALSE}
 clean_responses %>%
   select(Job.title, roadmap.DEEPScore, roadmap.mat_level) %>% 
@@ -93,7 +94,7 @@ clean_responses %>%
   summarise(n = n(),
             roadmap.DEEPScore = mean(roadmap.DEEPScore),
             roadmap.mat_level = mean(roadmap.mat_level))  %>% 
-  kable
+  kable(digits = 2)
 
 
 ggplot(clean_responses) +

@@ -51,6 +51,11 @@ lmHappyRole = lm(role.happiness ~ roadmap.DEEPScore , data = clean_responses)
 
 ```
 
+
+![Likert responses](../outputs/Happiness_likert.png)
+
+![Happiness of roadmap vs DEEP score for product people](../outputs/DEEPscore_vs_roadmapHappiness_prod.png)
+
 Where do people go to get their information?
 
 ```{r role2, echo=FALSE}

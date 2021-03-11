@@ -58,9 +58,26 @@ library(dplyr)
   lmHappyRoadmap = lm(roadmap.happiness ~ roadmap.DEEPScore , data = prod_responses) #Create a linear regression with two variables
   summary(lmHappyRoadmap)
   
+  png("../outputs/DEEPscore_vs_roadmapHappiness_prod.png")
+  myplot <-  ggplot(prod_responses,aes(x = roadmap.DEEPScore, y = roadmap.happiness)) +
+    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness))  +
+    labs(x = "DEEP Score", y = "Our product roadmap helps us deliver our strategy", title = "Happiness with roadmap vs maturity score (Product respondents)") +
+    geom_smooth(method=lm)
+  
+  print(myplot)
+  dev.off()
+  
   # given early results, roadmap happiness does not seem to be an indicator of roadmap maturity with non-prod roles
   lmHappyRoadmap = lm(roadmap.happiness ~ roadmap.DEEPScore , data = nonprod_responses) #Create a linear regression with two variables
   summary(lmHappyRoadmap)
+  
+  png("../outputs/DEEPscore_vs_roadmapHappiness_nonprod.png")
+  myplot <-  ggplot(nonprod_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness))  +
+    geom_smooth(method=lm)
+  
+  print(myplot)
+  dev.off()
   
   clean_responses %>%
     rpivotTable(
@@ -232,7 +249,7 @@ plot(lmDEEPProdPractices$residuals, pch = 16, col = "red")
 
 
 practices %>%
-  select(roadmap.mat_level, pp.lifecycle, pp.roadmapping,pp.releaseplanning, pp.prodRE) %>%
+  select(roadmap.mat_level, pp.lifecycle, pp.roadmapping, pp.releaseplanning, pp.prodRE) %>%
   group_by(roadmap.mat_level) %>%
   summarise("Product life-cycle management" = sum(pp.lifecycle)/n()*100,
             "Roadmapping" = sum(pp.roadmapping)/n()*100,
@@ -317,6 +334,14 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
           
 ## TOOLS
           
+          tools %>%
+            select(custom , office , product , project ) %>%
+            summarise("Custom Tools" = sum(custom)/n()*100,
+                      "Office Tools" = sum(office)/n()*100,
+                      "Specialist Product Tools" = sum(product)/n()*100,
+                      "Project management tools" = sum(project)/n()*100)
+          
+          
           lmDEEPTools = lm(roadmap.DEEPScore ~ custom * office * product * project , data = tools) #Create a linear regression with two variables
           summary(lmDEEPTools)
           
@@ -330,3 +355,29 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
           lmDEEPProdTools = lm(roadmap.DEEPScore ~ office * project , data = pm.tools) #Create a linear regression with two variables
           summary(lmDEEPProdTools)
           
+          
+  ## likert          
+          library(likert)
+          # split - separate likert questions, important they are saved as data.frame object
+          
+          items <- prod_responses %>%
+            select("roadmap.happiness", "role.happiness")
+          
+          # apply - apply any functions/loops to split data. 
+          # 1: Create a vector of the text descriptions of likert choices 1-5
+          choices  = c("Highly unhappy", "Unhappy", "Neutral", "Happy", "Highly happy")
+          
+          # 2: Run for loop over likert data to change "1" -> "highly disagree", etc
+          for(i in 1:ncol(items)) {
+            items[,i] = factor(items[,i], levels=1:5, labels=choices, ordered=TRUE)
+          }
+          
+          items <- items %>%
+            rename ( "Our product roadmap helps us deliver our strategy" = roadmap.happiness,
+                    "I have appropriate responsibility to achieve my goals" = role.happiness)
+          
+          
+          png("../outputs/Happiness_likert.png")
+          myplot <- plot(likert(items))
+          print(myplot)
+          dev.off()

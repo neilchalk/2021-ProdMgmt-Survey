@@ -26,6 +26,10 @@ This folder contains the R scripts and R Markdown files to pre-process the data,
 
 Copy of the anonymised raw data from Google Forms, and any tidied output data sets used in analysis.
 
+### docs
+
+Following [TemplateResults](https://realitybending.github.io/TemplateResults/) create a web version of the data analysis for easy sharing, e.g. via [https://neilchalk.github.io/2021-ProdMgmt-Survey](https://neilchalk.github.io/2021-ProdMgmt-Survey) as a web page.
+
 ### outputs
 
 Copy of any outputs of code analysis, e.g. image and HTML files, PDF and Word documents, or spreadsheets.

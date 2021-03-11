@@ -10,6 +10,10 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r summary, echo = FALSE, message=FALSE}
+summary(report::report(sessionInfo()))
+```
+
 ## Organisations
 
 What is the make up of the organisations that the respondents are working in?
@@ -85,9 +89,13 @@ clean_responses %>%
 
 ## Roadmap
 
-How mature were the roadmap processes by job title of respondent? Also did happiness with the roadmap process lead to a higher maturity score?
+How mature were the roadmap processes by job title of respondent? Also did happiness with the roadmap process correlate to a higher maturity score?
 
 ```{r roadmap, echo=FALSE}
+library(qqplotr)
+library(gridExtra)
+
+
 clean_responses %>%
   select(Job.title, roadmap.DEEPScore, roadmap.mat_level) %>% 
   group_by(Job.title) %>%
@@ -100,4 +108,15 @@ clean_responses %>%
 ggplot(clean_responses) +
   geom_point(aes(x = roadmap.happiness, y = roadmap.DEEPScore, colour = org.industry, shape = org.employees)) 
 
+ summary(lmHappyRole)
+  anova(lmHappyRole)
+performance::check_model(lmHappyRole)
+
+```
+
+## References 
+
+```{r references, echo=FALSE, message=FALSE, error=FALSE}
+
+report::cite_packages(sessionInfo())
 ```

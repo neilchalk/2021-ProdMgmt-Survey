@@ -1,3 +1,6 @@
+# Set up the environment (or use local alternative `source("utils/config.R")`)
+source("https://raw.githubusercontent.com/RealityBending/TemplateResults/main/utils/config.R")  
+
 # Load in raw data from google forms and do initial data tidying
 source('~/R/2021-ProdMgmt-Survey/code/survey-pre-process.R', echo=FALSE, print.eval = TRUE)
 # fit the data to the DEEP v1.1 roadmap maturity model and IPSMA v1.3 SPM framwork (refs in source)

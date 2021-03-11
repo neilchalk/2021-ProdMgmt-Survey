@@ -9,13 +9,9 @@ if (!require("rworldmap")) {
   install.packages("rworldmap")
   library(rworldmap)
 }
-# ggplot2, ggFlags, dplyr are needed for the bar charts
+# ggplot2, dplyr are needed for the bar charts and rmarkdown to produce the word doc
 library(ggplot2)
 library(dplyr)
-if (!require("ggflags")) {
-  devtools::install_github("rensa/ggflags")
-  library(ggflags)
-}
 library(rmarkdown)
 
 
@@ -50,6 +46,7 @@ dev.off()
 summary(clean_responses[3:8])
 ##### create report
 render("survey-visulisation.Rmd", "all", output_dir = "../outputs")
+render("survey-visulisation.Rmd", "html_document", output_dir = "../docs", output_file = "index")
 
 summary(clean_responses[18:26])
 

@@ -95,7 +95,10 @@ How mature were the roadmap processes by job title of respondent? Also did happi
 library(qqplotr)
 library(gridExtra)
 
-
+#create model to check correlation
+ lmHappyRoadmap = lm(roadmap.happiness ~ roadmap.DEEPScore , data = prod_responses)
+  summary(lmHappyRoadmap)
+  
 clean_responses %>%
   select(Job.title, roadmap.DEEPScore, roadmap.mat_level) %>% 
   group_by(Job.title) %>%
@@ -105,12 +108,12 @@ clean_responses %>%
   kable(digits = 2)
 
 
-ggplot(clean_responses) +
+ggplot(prod_responses) +
   geom_point(aes(x = roadmap.happiness, y = roadmap.DEEPScore, colour = org.industry, shape = org.employees)) 
 
- summary(lmHappyRole)
-  anova(lmHappyRole)
-performance::check_model(lmHappyRole)
+ summary(lmHappyRoadmap)
+  anova(lmHappyRoadmap)
+performance::check_model(lmHappyRoadmap)
 
 ```
 

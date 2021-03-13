@@ -3,14 +3,35 @@ title: "2021 Product Management Survey on the current state-of-practice"
 author: '[Neil Chalk](https://www.researchgate.net/profile/Neil_Chalk)'
 date: "`r Sys.Date()`"
 output:
-  word_document: default
+  html_document:
+    theme: cerulean
+    highlight: pygments
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    number_sections: no
+    df_print: kable
+    code_folding: hide
+    code_download: yes
+  word_document:
+    highlight: pygments
+    toc: no
+    toc_depth: 3
+    df_print: kable
+    number_sections: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+    latex_engine: xelatex
+editor_options: 
+  chunk_output_type: console    
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r summary, echo = FALSE, message=FALSE}
+```{r summary, echo = FALSE, message=FALSE, tidy=TRUE, results='asis'}
 summary(report::report(sessionInfo()))
 ```
 
@@ -96,7 +117,7 @@ clean_responses %>%
 
 How mature were the roadmap processes by job title of respondent? Also did happiness with the roadmap process correlate to a higher maturity score?
 
-```{r roadmap, echo=FALSE}
+```{r roadmap, echo=FALSE, results='asis'}
 library(qqplotr)
 library(gridExtra)
 
@@ -116,7 +137,7 @@ clean_responses %>%
 ggplot(prod_responses) +
   geom_point(aes(x = roadmap.happiness, y = roadmap.DEEPScore, colour = org.industry, shape = org.employees)) 
 
- summary(lmHappyRoadmap)
+  summary(lmHappyRoadmap)
   anova(lmHappyRoadmap)
 performance::check_model(lmHappyRoadmap)
 
@@ -124,7 +145,7 @@ performance::check_model(lmHappyRoadmap)
 
 ## References 
 
-```{r references, echo=FALSE, message=FALSE, error=FALSE}
+```{r references, echo=FALSE, message=FALSE, error=FALSE, results='asis'}
 
 report::cite_packages(sessionInfo())
 ```

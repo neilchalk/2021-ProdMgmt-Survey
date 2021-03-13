@@ -45,7 +45,7 @@ dev.off()
 
 summary(clean_responses[3:8])
 ##### create report
-render("survey-visulisation.Rmd", "all", output_dir = "../outputs")
+render("survey-visulisation.Rmd", "word_document", output_dir = "../outputs")
 render("survey-visulisation.Rmd", "html_document", output_dir = "../docs", output_file = "index")
 
 summary(clean_responses[18:26])

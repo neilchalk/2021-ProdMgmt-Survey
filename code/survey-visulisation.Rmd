@@ -11,7 +11,7 @@ output:
     toc_float: yes
     number_sections: no
     df_print: kable
-    code_folding: hide
+    code_folding: show
     code_download: yes
   word_document:
     highlight: pygments
@@ -24,7 +24,7 @@ output:
     toc_depth: '2'
     latex_engine: xelatex
 editor_options: 
-  chunk_output_type: console    
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -35,7 +35,10 @@ knitr::opts_chunk$set(echo = TRUE)
 summary(report::report(sessionInfo()))
 ```
 
-## Organisations
+# Descriptive Statistics
+
+
+## Demographics - Organisational Context
 
 What is the make up of the organisations that the respondents are working in?
 
@@ -47,11 +50,14 @@ summary(clean_responses[3:4]) %>% kable
 summary(clean_responses[5:7]) %>% kable
 ```
 
+
+## Demographics - Respondents 
+
 And where are they located?
 
 ![Location of respondents to the survey](../outputs/ResponsesMap.png)
 
-## Role
+## Perceptions of role and roadmap
 
 How happy were the respondents with their roadmap process and level of responsibility in the role?
 ```{r role, echo=FALSE}
@@ -63,11 +69,7 @@ clean_responses %>%
             role.happiness = mean(role.happiness))  %>% 
   kable(digits = 2)
 
-lmHappyRole = lm(role.happiness ~ roadmap.DEEPScore , data = clean_responses) 
- ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
-    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
-    geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], colour="#CC0000") +
-    facet_wrap(~Job.title)
+
  
 
 ```
@@ -75,7 +77,12 @@ lmHappyRole = lm(role.happiness ~ roadmap.DEEPScore , data = clean_responses)
 
 ![Likert responses](../outputs/Happiness_likert.png)
 
-![Happiness of roadmap vs DEEP score for product people](../outputs/DEEPscore_vs_roadmapHappiness_prod.png)
+
+
+## Role - Responsibilities ISPMA model
+
+
+## Information Sources
 
 Where do people go to get their information?
 
@@ -99,31 +106,64 @@ Which professional bodies are they members of?
 
 ```{r profbdy, echo=FALSE}
 clean_responses %>%
-  select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.none) %>%
+  select(Job.title, profbody.acm, profbody.aipmm, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.WiP, profbody.none) %>%
   group_by(Job.title) %>%
   summarise("ACM" = round(sum(profbody.acm)/n()*100),
             "AIPMM" = sum(profbody.aipmm)/n()*100,
-            "AMI" = sum(profbody.ami)/n()*100,
-            "APM" = sum(profbody.apm)/n()*100,
             "BCS" = sum(profbody.bcs)/n()*100,
-            "IAOIP" = sum(profbody.iaoip)/n()*100,
             "ISPMA" = sum(profbody.ispma)/n()*100,
             "PDMA" = sum(profbody.pdma)/n()*100,
+            "MTP" = sum(profbody.MTP)/n()*100,
+            "WiP" = sum(profbody.WiP)/n()*100,
             "None" = sum(profbody.none)/n()*100) %>%
   kable(digits = 2)
 ```
 
-## Roadmap
+## DEEP Roadmap Maturity {.tabset}
 
-How mature were the roadmap processes by job title of respondent? Also did happiness with the roadmap process correlate to a higher maturity score?
+There were a spread of responses, but generally skewing to the right. In the charts below the least "mature" practices are to the left and the highest scoring, mature processes to the right. (According to [DEEP Product Maturity Model](https://www.researchgate.net/publication/336070112_The_Product_Roadmap_Maturity_Model_DEEP_Validation_of_a_Method_for_Assessing_the_Product_Roadmap_Capabilities_of_Organizations) V1.1 By Munch, Trieflinger and Lang.)
 
-```{r roadmap, echo=FALSE, results='asis'}
-library(qqplotr)
-library(gridExtra)
+### All responses
 
-#create model to check correlation
- lmHappyRoadmap = lm(roadmap.happiness ~ roadmap.DEEPScore , data = prod_responses)
-  summary(lmHappyRoadmap)
+```{r deep_roadmap_all, echo=FALSE}
+items <- clean_responses[,18:26]
+colly <- names(items)
+
+
+par(mfrow=c(3,3))
+
+for(i in 1:ncol(items)) {
+  plot(items[,i], main = colly[i], axes=FALSE)
+  Axis(side=1, labels=FALSE)
+  Axis(side=2, labels=TRUE)
+}
+
+mtext(paste("DEEP responses, n=" , nrow(items)), side=1, outer=TRUE, line=-3)
+```
+
+### Product responses
+
+```{r deep_roadmap_prod, echo=FALSE}
+items <- prod_responses[,18:26]
+colly <- names(items)
+
+
+par(mfrow=c(3,3))
+
+for(i in 1:ncol(items)) {
+  plot(items[,i], main = colly[i], axes=FALSE)
+  Axis(side=1, labels=FALSE)
+  Axis(side=2, labels=TRUE)
+}
+
+mtext(paste("DEEP responses, n=" , nrow(items)), side=1, outer=TRUE, line=-3)
+```
+
+### by job title
+
+How mature were the roadmap processes by job title of respondent? 
+
+```{r roadmap_des, echo=FALSE, results='asis'}
   
 clean_responses %>%
   select(Job.title, roadmap.DEEPScore, roadmap.mat_level) %>% 
@@ -134,6 +174,73 @@ clean_responses %>%
   kable(digits = 2)
 
 
+```
+
+## Tool usage {.tabset}
+
+What kind of tools did the respondents use? 
+
+### All
+
+```{r tools_all, echo=FALSE, results='asis'}
+  
+    tools %>%
+            select(custom , office , product , project ) %>%
+            summarise("Custom Tools" = sum(custom)/n()*100,
+                      "Office Tools" = sum(office)/n()*100,
+                      "Specialist Product Tools" = sum(product)/n()*100,
+                      "Project management tools" = sum(project)/n()*100)  %>% 
+  kable(digits = 2)
+
+ tools %>%
+  select(roadmap.tools ) %>%
+  group_by(roadmap.tools)%>%
+  tally(sort = T) %>%
+  ungroup() %>%
+  arrange(desc(n)) %>%
+      kable
+
+```
+
+### Product
+
+```{r tools_pm, echo=FALSE, results='asis'}
+
+ pm.tools <-      tools %>%
+             filter(grepl('Product', Job.title)) 
+  
+    pm.tools %>%
+            select(custom , office , product , project ) %>%
+            summarise("Custom Tools" = sum(custom)/n()*100,
+                      "Office Tools" = sum(office)/n()*100,
+                      "Specialist Product Tools" = sum(product)/n()*100,
+                      "Project management tools" = sum(project)/n()*100) %>% 
+  kable(digits = 2)
+
+    pm.tools %>%
+  select(roadmap.tools ) %>%
+  group_by(roadmap.tools)%>%
+  tally(sort = T) %>%
+  ungroup() %>%
+  arrange(desc(n)) %>%
+      kable
+
+```
+
+# Inferential Statistics 
+
+did happiness with the roadmap process correlate to a higher maturity score?
+
+![Happiness of roadmap vs DEEP score for product people](../outputs/DEEPscore_vs_roadmapHappiness_prod.png)
+
+```{r roadmap_inf, echo=FALSE, results='asis'}
+library(qqplotr)
+library(gridExtra)
+
+#create model to check correlation
+ lmHappyRoadmap = lm(roadmap.happiness ~ roadmap.DEEPScore , data = prod_responses)
+
+
 ggplot(prod_responses) +
   geom_point(aes(x = roadmap.happiness, y = roadmap.DEEPScore, colour = org.industry, shape = org.employees)) 
 
@@ -141,7 +248,15 @@ ggplot(prod_responses) +
   anova(lmHappyRoadmap)
 performance::check_model(lmHappyRoadmap)
 
+lmHappyRole = lm(role.happiness ~ roadmap.DEEPScore , data = clean_responses) 
+ ggplot(clean_responses,aes(x = roadmap.DEEPScore, y = role.happiness)) +
+    geom_point(aes(x = roadmap.DEEPScore, y = role.happiness, colour = org.industry, shape = org.employees)) +
+    geom_abline(slope = coef(lmHappyRole)[[2]], intercept = coef(lmHappyRole)[[1]], colour="#CC0000") +
+    facet_wrap(~Job.title)
+ 
 ```
+
+
 
 ## References 
 

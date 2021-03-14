@@ -36,7 +36,7 @@ mapCountryData(matched,
                colourPalette = "heat",
                oceanCol="lightblue",
                missingCountryCol="white",
-               addLegend = FALSE,
+               addLegend = TRUE,
                lwd = 1)
 
 dev.off()

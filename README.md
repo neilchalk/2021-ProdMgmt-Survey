@@ -45,3 +45,4 @@ The following tutorials were invaluable in getting certain aspects of the analys
 * [Data Vis for Likert Questions](https://lmudge13.github.io/sample_code/likert_graphs.html) by Laura Mudge
 * [How to share data analysis scripts with publications?](https://dominiquemakowski.github.io/post/template_results/) by Dr Dominique Makowski
 * [All Around The World: Maps and Flags in R](https://www.r-bloggers.com/2019/03/all-around-the-world-maps-and-flags-in-r/)
+* [ggplot2 - Easy Way to Mix Multiple Graphs on The Same Page](http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/)

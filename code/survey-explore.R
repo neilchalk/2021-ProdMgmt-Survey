@@ -373,11 +373,19 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
           }
           
           items <- items %>%
-            rename ( "Our product roadmap helps us deliver our strategy" = roadmap.happiness,
-                    "I have appropriate responsibility to achieve my goals" = role.happiness)
+            rename ( "Our product roadmap helps\n us deliver our strategy" = roadmap.happiness,
+                    "I have appropriate responsibility\n to achieve my goals" = role.happiness)
           
           
-          png("../outputs/Happiness_likert.png")
+          png("../outputs/Happiness_likert.png",
+              width = 1024, height = 768)
           myplot <- plot(likert(items))
           print(myplot)
           dev.off()
+          
+          
+          clean_responses %>%
+            select( roadmap.DEEPScore, roadmap.mat_level) %>% 
+            summarise(n = n(),
+                      roadmap.DEEPScore = mean(roadmap.DEEPScore),
+                      roadmap.mat_level = mean(roadmap.mat_level))

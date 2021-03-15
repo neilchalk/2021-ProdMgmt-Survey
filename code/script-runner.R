@@ -1,5 +1,5 @@
 # Set up the environment (or use local alternative `source("utils/config.R")`)
-source("https://raw.githubusercontent.com/RealityBending/TemplateResults/main/utils/config.R")  
+source("~/R/2021-ProdMgmt-Survey/code/config.R")  
 
 # Load in raw data from google forms and do initial data tidying
 source('~/R/2021-ProdMgmt-Survey/code/survey-pre-process.R', echo=FALSE, print.eval = TRUE)

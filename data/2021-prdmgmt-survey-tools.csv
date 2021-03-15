@@ -1,0 +1,72 @@
+"","X","Job.title","role.happiness","roadmap.happiness","roadmap.DEEPScore","roadmap.mat_level","roadmap.tools","office","product","project","custom"
+"1",1,"Senior Product Manager",4,4,60,4,"",FALSE,FALSE,FALSE,FALSE
+"2",2,"Product Manager",5,5,74,4,"",FALSE,FALSE,FALSE,FALSE
+"3",3,"FP&A",5,4,43,3,"MICROSOFT: Project Server",FALSE,FALSE,TRUE,FALSE
+"4",4,"Product Manager",4,3,70,4,"",FALSE,FALSE,FALSE,FALSE
+"5",5,"Product Manager",3,4,50,3,"MICROSOFT: Excel",TRUE,FALSE,FALSE,FALSE
+"6",6,"Senior Product Marketing Manager",5,5,68,4,"MICROSOFT: Excel;MICROSOFT: PowerPoint",TRUE,FALSE,FALSE,FALSE
+"7",7,"Head of Product/VP/Director/CPO",5,3,80,4,"MICROSOFT: Excel;MICROSOFT: PowerPoint;MICROSOFT: Project Server",TRUE,FALSE,TRUE,FALSE
+"8",8,"Senior Product Manager",2,3,47,3,"MICROSOFT: Excel;PRODPAD: ProdPad",TRUE,TRUE,FALSE,FALSE
+"9",9,"Senior Product Manager",5,3,78,4,"",FALSE,FALSE,FALSE,FALSE
+"10",10,"Lead Product Manager",4,5,64,4,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"11",11,"Product Manager",5,5,66,4,"ATLASSIAN: Jira/Confluence;MICROSOFT: Excel",TRUE,FALSE,TRUE,FALSE
+"12",12,"Continuous improvement specialist",3,2,62,4,"ATLASSIAN: Jira/Confluence;MICROSOFT: Excel;MICROSOFT: PowerPoint",TRUE,FALSE,TRUE,FALSE
+"13",13,"CTO",5,4,77,4,"ATLASSIAN: Jira/Confluence;MICROSOFT: Excel;MICROSOFT: PowerPoint;MICROSOFT: Project Server",TRUE,FALSE,TRUE,FALSE
+"14",14,"CTO",5,5,33,3,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"15",15,"Product Manager",4,3,64,4,"Google Slides",FALSE,FALSE,FALSE,FALSE
+"16",16,"Senior Product Manager",3,3,44,3,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"17",17,"Product Manager",5,5,70,4,"MICROSOFT: Excel;MICROSOFT: Project Server",TRUE,FALSE,TRUE,FALSE
+"18",18,"Freelancer ( Products & Growth )",4,4,69,4,"MICROSOFT: Excel;MICROSOFT: PowerPoint;PRODUCTPLAN: ProductPlan",TRUE,TRUE,FALSE,FALSE
+"19",19,"Head of Product/VP/Director/CPO",4,5,85,5,"ATLASSIAN: Jira/Confluence;MICROSOFT: Excel;MICROSOFT: PowerPoint",TRUE,FALSE,TRUE,FALSE
+"20",20,"Associate/Junior Product Manager",4,4,47,3,"MICROSOFT: Excel",TRUE,FALSE,FALSE,FALSE
+"21",21,"Product Manager",1,4,35,3,"ATLASSIAN: Jira/Confluence;MICROSOFT: Excel;MICROSOFT: PowerPoint",TRUE,FALSE,TRUE,FALSE
+"22",22,"Senior Product Manager",3,2,32,3,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"23",23,"Head of Product/VP/Director/CPO",4,3,59,4,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"24",24,"Lead Product Manager",4,4,81,4,"JIRA",FALSE,FALSE,FALSE,FALSE
+"25",25,"Head of Product/VP/Director/CPO",5,4,54,3,"Trello, Wrike",FALSE,FALSE,TRUE,FALSE
+"26",26,"Product Manager",3,1,40,3,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"27",27,"Product Manager",5,5,62,4,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"28",28,"Senior Product Manager",5,4,66,4,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"29",29,"Product Manager",5,2,68,4,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"30",30,"Head of Product/VP/Director/CPO",4,4,87,5,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"31",31,"CEO",5,3,49,3,"MICROSOFT: Excel;MICROSOFT: PowerPoint;PRODUCTPLAN: ProductPlan",TRUE,TRUE,FALSE,FALSE
+"32",32,"Head of Product/VP/Director/CPO",5,1,53,3,"ATLASSIAN: Jira/Confluence;MICROSOFT: Excel",TRUE,FALSE,TRUE,FALSE
+"33",33,"CEO",5,3,20,2,"AHA LABS: AHA!;ATLASSIAN: Jira/Confluence",FALSE,TRUE,TRUE,FALSE
+"34",34,"Head of Product/VP/Director/CPO",3,3,53,3,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"35",35,"CEO",5,5,45,3,"MICROSOFT: Excel",TRUE,FALSE,FALSE,FALSE
+"36",36,"CEO",2,1,78,4,"PRODUCTBOARD: Productboard",FALSE,TRUE,FALSE,FALSE
+"37",37,"Senior Product Manager",3,3,60,4,"PRODPAD: ProdPad",FALSE,TRUE,FALSE,FALSE
+"38",38,"Engineering Manager",5,5,94,5,"",FALSE,FALSE,FALSE,FALSE
+"39",39,"Operational Manager ",4,5,32,3,"MICROSOFT: Excel;MICROSOFT: PowerPoint",TRUE,FALSE,FALSE,FALSE
+"40",40,"Product Consultant",4,4,80,4,"MICROSOFT: Excel;MICROSOFT: PowerPoint",TRUE,FALSE,FALSE,FALSE
+"41",41,"CTO",5,5,75,4,"ATLASSIAN: Jira/Confluence;MICROSOFT: Excel;PRODPAD: ProdPad",TRUE,TRUE,TRUE,FALSE
+"42",42,"CTO",5,5,54,3,"Google Sheets, Google Docs, Assembla, evaluating ClickUp",TRUE,FALSE,FALSE,FALSE
+"43",43,"Director of Product Design",4,5,64,4,"ServiceNow",FALSE,FALSE,FALSE,FALSE
+"44",44,"Product Manager",3,2,33,3,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"45",45,"Operational Manager ",4,5,32,3,"MICROSOFT: Excel;MICROSOFT: PowerPoint",TRUE,FALSE,FALSE,FALSE
+"46",46,"Head of Product/VP/Director/CPO",4,4,84,5,"Roadmunk",FALSE,TRUE,FALSE,FALSE
+"47",47,"Associate/Junior Product Manager",3,3,61,4,"ATLASSIAN: Jira/Confluence;MICROSOFT: Excel",TRUE,FALSE,TRUE,FALSE
+"48",48,"Senior Product Manager",5,5,72,4,"Google Slides & Google Sheets",TRUE,FALSE,FALSE,FALSE
+"49",49,"Senior Product Manager",4,5,65,4,"ATLASSIAN: Jira/Confluence;MICROSOFT: Excel;MICROSOFT: PowerPoint",TRUE,FALSE,TRUE,FALSE
+"50",50,"Lead Product Manager",5,5,92,5,"in house solution",FALSE,FALSE,FALSE,TRUE
+"51",51,"Lead Product Manager",5,4,61,4,"ITONICS: Roadmapping-Engine",FALSE,TRUE,FALSE,FALSE
+"52",52,"Product Manager",5,4,58,4,"Own platform",FALSE,FALSE,FALSE,TRUE
+"53",53,"CTO",5,5,60,4,"taskstreamer.com",FALSE,FALSE,FALSE,FALSE
+"54",54,"Head of Product/VP/Director/CPO",4,4,90,5,"PRODPAD: ProdPad",FALSE,TRUE,FALSE,FALSE
+"55",55,"Senior Product Manager",5,4,53,3,"ATLASSIAN: Jira/Confluence;Google sheets",FALSE,FALSE,TRUE,FALSE
+"56",56,"Product Manager",3,3,58,4,"ATLASSIAN: Jira/Confluence;PRODPAD: ProdPad",FALSE,TRUE,TRUE,FALSE
+"57",57,"CEO",5,5,58,4,"In-house solution;MICROSOFT: Excel;MICROSOFT: PowerPoint;PRODPAD: ProdPad",TRUE,TRUE,FALSE,TRUE
+"58",58,"Product Manager",3,4,80,4,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"59",59,"Lead Product Manager",4,4,82,4,"ATLASSIAN: Jira/Confluence",FALSE,FALSE,TRUE,FALSE
+"60",60,"Senior Product Manager",3,4,49,3,"PRODPAD: ProdPad",FALSE,TRUE,FALSE,FALSE
+"61",61,"Head of Product/VP/Director/CPO",4,4,27,2,"PRODPAD: ProdPad",FALSE,TRUE,FALSE,FALSE
+"62",62,"CEO",5,4,52,3,"Kitemaker",FALSE,FALSE,FALSE,FALSE
+"63",63,"Senior Product Manager",4,4,48,3,"ATLASSIAN: Jira/Confluence;GOOGLE: Google Sheets",TRUE,FALSE,TRUE,FALSE
+"64",64,"Product Manager",3,2,85,5,"PRODUCTBOARD: Productboard",FALSE,TRUE,FALSE,FALSE
+"65",65,"Product Marketing Manager",5,3,61,4,"MICROSOFT: Excel",TRUE,FALSE,FALSE,FALSE
+"66",67,"Associate/Junior Product Manager",4,3,36,3,"GOOGLE: Google Sheets",TRUE,FALSE,FALSE,FALSE
+"67",68,"Associate/Junior Product Manager",NA,3,9,1,"AHA LABS: AHA!;PRODUCTBOARD: Productboard",FALSE,TRUE,FALSE,FALSE
+"68",69,"Lead Product Manager",4,4,89,5,"ATLASSIAN: Jira/Confluence;GOOGLE: Google Sheets",TRUE,FALSE,TRUE,FALSE
+"69",70,"Engineering Manager",5,3,36,3,"In-house solution",FALSE,FALSE,FALSE,TRUE
+"70",71,"Head of Product/VP/Director/CPO",4,4,51,3,"GOOGLE: Google Sheets;Clubhouse",TRUE,FALSE,FALSE,FALSE
+"71",72,"Associate/Junior Product Manager",3,5,82,4,"ATLASSIAN: Jira/Confluence;GOOGLE: Google Sheets;PRODUCTBOARD: Productboard",TRUE,TRUE,TRUE,FALSE

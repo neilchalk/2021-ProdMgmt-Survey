@@ -343,3 +343,8 @@ i = grep("In-house solution", tools[,7])
 tools[i,"custom"] <-  TRUE
 
 #tools <- tools[-7]
+
+
+write.csv(clean_responses, file = "../data/2021-prdmgmt-survey-modelled.csv")
+write.csv(tools, file = "../data/2021-prdmgmt-survey-tools.csv")
+write.csv(practices, file = "../data/2021-prdmgmt-survey-practices.csv")

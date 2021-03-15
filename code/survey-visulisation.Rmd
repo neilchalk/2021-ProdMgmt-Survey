@@ -31,8 +31,13 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Research Methodology {.tabset}
+
 ```{r summary, echo = FALSE, message=FALSE, tidy=TRUE, results='asis'}
 summary(report::report(sessionInfo()))
+```
+
+```{r child='../code book.md'}
 ```
 
 # Descriptive Statistics
@@ -51,16 +56,28 @@ summary(clean_responses[5:7]) %>% kable
 ```
 
 
-## Demographics - Respondents 
+## Demographics - Respondents {.tabset}
 
 And where are they located?
 
+### Map
+
 ![Location of respondents to the survey](../outputs/ResponsesMap.png)
 
-## Perceptions of role and roadmap
+### Location data
+
+```{r location_data}
+clean_responses %>%
+  group_by(org.location) %>%
+  summarise(n = n()) %>%
+  kable()
+
+```
+
+## Role - Perceptions 
 
 How happy were the respondents with their roadmap process and level of responsibility in the role?
-```{r role, echo=FALSE}
+```{r role, echo=FALSE, fig.width=1024}
 clean_responses %>%
   select(Job.title, roadmap.happiness, role.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
   group_by(Job.title) %>%
@@ -69,17 +86,134 @@ clean_responses %>%
             role.happiness = mean(role.happiness))  %>% 
   kable(digits = 2)
 
+library(likert)
+          # split - separate likert questions, important they are saved as data.frame object
+          
+          items <- prod_responses %>%
+            select("roadmap.happiness", "role.happiness")
+          
+          # apply - apply any functions/loops to split data. 
+          # 1: Create a vector of the text descriptions of likert choices 1-5
+          choices  = c("Highly unhappy", "Unhappy", "Neutral", "Happy", "Highly happy")
+          
+          # 2: Run for loop over likert data to change "1" -> "highly disagree", etc
+          for(i in 1:ncol(items)) {
+            items[,i] = factor(items[,i], levels=1:5, labels=choices, ordered=TRUE)
+          }
+          
+          items <- items %>%
+            rename ( "Our product roadmap helps\n us deliver our strategy" = roadmap.happiness,
+                    "I have appropriate responsibility\n to achieve my goals" = role.happiness)
+          
+          
+          
+          plot(likert(items))
 
  
 
 ```
 
+## Role - Responsibilities ISPMA model  {.tabset}
 
-![Likert responses](../outputs/Happiness_likert.png)
+Next we asked which activities we part of the respondent's responsibilities based on the ISPMA's v1.3 of the Framework
+
+![ISPMA's Framework v1.3 ](../static/ISPMA-SPM-Framework-V.1.3.png)
+
+### Strategic management
+
+```{r}
+
+practices %>%
+  select(Job.title, sm.corpstrat, sm.portfoliomgmt, sm.innovationmgmt, sm.resmgmt, sm.marketanalysis, sm.prodanalysis) %>%
+  group_by(Job.title) %>%
+  summarise("Corporate Strategy" = round(sum(sm.corpstrat)/n()*100),
+            "Portfolio Management" = sum(sm.portfoliomgmt)/n()*100,
+            "Innovation Management" = sum(sm.innovationmgmt)/n()*100,
+            "Resource Management" = sum(sm.resmgmt)/n()*100,
+            "Market Analysis" = sum(sm.marketanalysis)/n()*100,
+            "Product Analysis" = sum(sm.prodanalysis)/n()*100) %>%
+  kable()
 
 
+```
 
-## Role - Responsibilities ISPMA model
+### Product Strategy
+
+```{r}
+practices %>%
+  select(roadmap.mat_level, ps.position, ps.deliverymodel, ps.sourcing, ps.bizcase, ps.pricing, ps.ecosystem, ps.legalandpr, ps.perfandrisk) %>%
+  group_by(roadmap.mat_level) %>%
+  summarise("Positioning and product definition" = sum(ps.position)/n()*100,
+            "Delivery model & Service strategy" = sum(ps.deliverymodel)/n()*100,
+            "Sourcing" = sum(ps.sourcing)/n()*100,
+            "Business case and costing" = sum(ps.bizcase)/n()*100,
+            "Pricing" = sum(ps.pricing)/n()*100,
+            "Ecosystem management" = sum(ps.ecosystem)/n()*100,
+            "Legal & PR management" = sum(ps.legalandpr)/n()*100,
+            "Performance & Risk management" = sum(ps.perfandrisk)/n()*100) %>%
+  kable()
+
+
+```
+
+### Product Planning
+
+```{r}
+practices %>%
+  select(roadmap.mat_level, pp.lifecycle, pp.roadmapping, pp.releaseplanning, pp.prodRE) %>%
+  group_by(roadmap.mat_level) %>%
+  summarise("Product life-cycle management" = sum(pp.lifecycle)/n()*100,
+            "Roadmapping" = sum(pp.roadmapping)/n()*100,
+            "Release planning" = sum(pp.releaseplanning)/n()*100,
+            "Product requirements engineering" = sum(pp.prodRE)/n()*100) %>%
+  kable()
+
+
+```
+
+### Development
+
+```{r}
+
+practices %>%
+            select(roadmap.mat_level, dev.engmgmt,dev.projmgmt, dev.projRE, dev.ux, dev.qual ) %>%
+            group_by(roadmap.mat_level) %>%
+            summarise("Engineering Management" = sum(dev.engmgmt)/n()*100,
+                      "Project Management" = sum(dev.projmgmt)/n()*100,
+                      "Project requirements engineering" = sum(dev.projRE)/n()*100,
+                      "User experience design" = sum(dev.ux)/n()*100,
+                      "Quality Management" = sum(dev.qual)/n()*100) %>%
+  kable()
+        
+
+```
+
+### Marketing
+
+```{r mar}
+
+          practices %>%
+            select(roadmap.mat_level, mar.plan,mar.cust, mar.oppomgmt, mar.mix, mar.gtm,mar.ops ) %>%
+            group_by(roadmap.mat_level) %>%
+            summarise("Marketing planning" = sum(mar.plan)/n()*100,
+                      "Customer analysis" = sum(mar.cust)/n()*100,
+                      "Opportunity Management" = sum(mar.oppomgmt)/n()*100,
+                      "Marketing mix optimisation" = sum(mar.mix)/n()*100,
+                      "Product launches (GTM)" = sum(mar.gtm)/n()*100,
+                      "Operational marketing" = sum(mar.ops)/n()*100) %>%
+  kable()
+
+```
+
+### Sales and Distribution
+
+```{r}
+```
+
+### Service and Support
+
+```{r}
+```
 
 
 ## Information Sources
@@ -264,3 +398,6 @@ lmHappyRole = lm(role.happiness ~ roadmap.DEEPScore , data = clean_responses)
 
 report::cite_packages(sessionInfo())
 ```
++ Horrock, I., Fowles, M (2012) ‘Block 2: Designing and doing your research’. T847: The MSc Professional Project. 30 credit Open University module for the postgraduate Technology Management programme. Milton Keynes, The Open University. Available at: https://learn2.open.ac.uk/mod/oucontent/view.php?id=1660368 [Accessed: 10 January  2021].
++ ISPMA (2020) ISPMA SPM Framework V.1.3 [online] ispma.org Available at:  https://ispma.org/ispma-spm-framework-v-1-3/ [Accessed 31 December 2020]
++ Münch, J, Trieflinger, S and Lang, D (2019) ‘DEEP: the product roadmap maturity model: a method for assessing the product roadmapping capabilities of organizations’, in Proceedings of the 2nd ACM SIGSOFT International Workshop on software-intensive business: start-ups, platforms, and ecosystems. ACM, pp. 19–24. doi: 10.1145/3340481.3342733.

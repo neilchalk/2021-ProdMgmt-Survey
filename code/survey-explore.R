@@ -365,7 +365,7 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
           
           # apply - apply any functions/loops to split data. 
           # 1: Create a vector of the text descriptions of likert choices 1-5
-          choices  = c("Highly unhappy", "Unhappy", "Neutral", "Happy", "Highly happy")
+          choices  = c("Strongly disagree", "disagree", "Neutral", "Agree", "Strongly agree")
           
           # 2: Run for loop over likert data to change "1" -> "highly disagree", etc
           for(i in 1:ncol(items)) {

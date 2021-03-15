@@ -74,9 +74,16 @@ clean_responses %>%
 
 ```
 
-## Role - Perceptions 
+## Role - Perceptions {.tabset} 
 
 How happy were the respondents with their roadmap process and level of responsibility in the role?
+
+### Chart
+
+![Perception of role/roadmap](../outputs/Happiness_likert.png)
+
+### Data by job title
+
 ```{r role, echo=FALSE}
 clean_responses %>%
   select(Job.title, roadmap.happiness, role.happiness , roadmap.DEEPScore, roadmap.mat_level) %>% 
@@ -90,8 +97,6 @@ clean_responses %>%
  
 
 ```
-
-![Perception of role/roadmap](../outputs/Happiness_likert.png)
 
 ## Role - Responsibilities ISPMA model  {.tabset}
 
@@ -198,9 +203,13 @@ practices %>%
 ```
 
 
-## Information Sources
+## Information Sources {.tabset}
 
-Where do people go to get their information?
+Looking at the tranmission of theory to practice, where do people go to get answers? Which communtities are they a part of?
+
+### Sources 
+
+Where do people go to get their information? (as percentage of respondents)
 
 ```{r role2, echo=FALSE}
 clean_responses %>%
@@ -218,7 +227,9 @@ clean_responses %>%
   kable(digits = 2)
 ```
 
-Which professional bodies are they members of?
+### Professional bodies
+
+Which professional bodies are they members of? (as percentage of respondents)
 
 ```{r profbdy, echo=FALSE}
 clean_responses %>%

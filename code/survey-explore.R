@@ -61,7 +61,7 @@ library(dplyr)
   png("../outputs/DEEPscore_vs_roadmapHappiness_prod.png")
   myplot <-  ggplot(prod_responses,aes(x = roadmap.DEEPScore, y = roadmap.happiness)) +
     geom_point(aes(x = roadmap.DEEPScore, y = role.happiness))  +
-    labs(x = "DEEP Score", y = "Our product roadmap helps us deliver our strategy", title = "Happiness with roadmap vs maturity score (Product respondents)") +
+    labs(x = "DEEP Score", y = "Our product roadmap helps us deliver our strategy", title = "Roadmap effectiveness perception vs maturity score (Product respondents)") +
     geom_smooth(method=lm)
   
   print(myplot)
@@ -130,31 +130,31 @@ clean_responses %>%
 clean_responses %>%
   select(Job.title, info.events, info.blogs, info.books, info.communities, info.profbody, info.profcert, info.training, info.vendor, info.google) %>%
   mutate_if(is.character,as.factor) %>%
-  group_by(Job.title) %>%
-  summarise("Events and conferences" = round(sum(info.events)/n()*100),
-            "Blogs" = sum(info.blogs)/n()*100,
-            "Books" = sum(info.books)/n()*100,
-            "Online Communities" = sum(info.communities)/n()*100,
-            "Prof Bodies" = sum(info.profbody)/n()*100,
-            "Prof Certification" = sum(info.profcert)/n()*100,
-            "Prof Training" = sum(info.training)/n()*100,
-            "Tool Vendors" = sum(info.vendor)/n()*100,
-            "Google" = sum(info.google)/n()*100)
+  summarise("Events and conferences" = sum(info.events),
+            "Blogs" = sum(info.blogs),
+            "Books" = sum(info.books),
+            "Online Communities" = sum(info.communities),
+            "Prof Bodies" = sum(info.profbody),
+            "Prof Certification" = sum(info.profcert),
+            "Prof Training" = sum(info.training),
+            "Tool Vendors" = sum(info.vendor),
+            "Google" = sum(info.google)) %>%
+  kable
 
 prod_responses %>%
   select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.WiP, profbody.none) %>%
   group_by(Job.title) %>%
-  summarise("ACM" = round(sum(profbody.acm)/n()*100),
-            "AIPMM" = sum(profbody.aipmm)/n()*100,
-            "AMI" = sum(profbody.ami)/n()*100,
-            "APM" = sum(profbody.apm)/n()*100,
-            "BCS" = sum(profbody.bcs)/n()*100,
-            "IAOIP" = sum(profbody.iaoip)/n()*100,
-            "ISPMA" = sum(profbody.ispma)/n()*100,
-            "PDMA" = sum(profbody.pdma)/n()*100,
-            "MTP" = sum(profbody.MTP)/n()*100,
-            "WiP" = sum(profbody.WiP)/n()*100,
-            "None" = sum(profbody.none)/n()*100)
+  summarise("ACM" = sum(profbody.acm),
+            "AIPMM" = sum(profbody.aipmm),
+            "AMI" = sum(profbody.ami),
+            "APM" = sum(profbody.apm),
+            "BCS" = sum(profbody.bcs),
+            "IAOIP" = sum(profbody.iaoip),
+            "ISPMA" = sum(profbody.ispma),
+            "PDMA" = sum(profbody.pdma),
+            "MTP" = sum(profbody.MTP),
+            "WiP" = sum(profbody.WiP),
+            "None" = sum(profbody.none))
 
 nonprod_responses %>%
   select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.WiP, profbody.none) %>%
@@ -249,12 +249,13 @@ plot(lmDEEPProdPractices$residuals, pch = 16, col = "red")
 
 
 practices %>%
-  select(roadmap.mat_level, pp.lifecycle, pp.roadmapping, pp.releaseplanning, pp.prodRE) %>%
+  select(Job.title, roadmap.mat_level, pp.lifecycle, pp.roadmapping, pp.releaseplanning, pp.prodRE) %>%
+  filter(grepl('Product', Job.title)) %>%
   group_by(roadmap.mat_level) %>%
-  summarise("Product life-cycle management" = sum(pp.lifecycle)/n()*100,
-            "Roadmapping" = sum(pp.roadmapping)/n()*100,
-            "Release planning" = sum(pp.releaseplanning)/n()*100,
-            "Product requirements engineering" = sum(pp.prodRE)/n()*100)
+  summarise("Product life-cycle management" = sum(pp.lifecycle),
+            "Roadmapping" = sum(pp.roadmapping),
+            "Release planning" = sum(pp.releaseplanning),
+            "Product requirements engineering" = sum(pp.prodRE))
 
 # appears to be a relationship between having responsibility for "Release planning" and roadmap maturity 
 lmDEEPPlanPractices = lm(roadmap.DEEPScore ~ pp.releaseplanning , data = practices) #Create a linear regression with two variables
@@ -372,19 +373,18 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
             items[,i] = factor(items[,i], levels=1:5, labels=choices, ordered=TRUE)
           }
           
-          items <- items %>%
-            rename ( "Our product roadmap helps\n us deliver our strategy" = roadmap.happiness,
-                    "I have appropriate responsibility\n to achieve my goals" = role.happiness)
+          names(items) <- c("Our product roadmap helps\n us deliver our strategy", "I have appropriate responsibility\n to achieve my goals")
           
           
           png("../outputs/Happiness_likert.png",
               width = 1024, height = 768)
+          par(mgp=c(3,2,0))
           myplot <- plot(likert(items))
           print(myplot)
           dev.off()
           
           
-          clean_responses %>%
+          nonprod_responses %>%
             select( roadmap.DEEPScore, roadmap.mat_level) %>% 
             summarise(n = n(),
                       roadmap.DEEPScore = mean(roadmap.DEEPScore),

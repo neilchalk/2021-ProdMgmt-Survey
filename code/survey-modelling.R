@@ -285,6 +285,49 @@ i = grep("Operational marketing", practices[,7])
 practices[,"mar.ops"] <-  FALSE
 practices[i,"mar.ops"] <-  TRUE
 
+practices <- practices[-7]
+
+i = grep("Sales planning", practices[,7])
+practices[,"sd.salesplan"] <-  FALSE
+practices[i,"sd.salesplan"] <-  TRUE
+
+i = grep("Channel preparation", practices[,7])
+practices[,"sd.chanelprep"] <-  FALSE
+practices[i,"sd.chanelprep"] <-  TRUE
+
+i = grep("Customer relationship management", practices[,7])
+practices[,"sd.crm"] <-  FALSE
+practices[i,"sd.crm"] <-  TRUE
+
+i = grep("Operational sales", practices[,7])
+practices[,"sd.salesops"] <-  FALSE
+practices[i,"sd.salesops"] <-  TRUE
+
+i = grep("Operational distribution", practices[,7])
+practices[,"sd.opdistro"] <-  FALSE
+practices[i,"sd.opdistro"] <-  TRUE
+
+practices <- practices[-7]
+
+i = grep("Service planning and preparation", practices[,7])
+practices[,"ss.serviceplan"] <-  FALSE
+practices[i,"ss.serviceplan"] <-  TRUE
+
+i = grep("Service provisioning", practices[,7])
+practices[,"ss.serviceprov"] <-  FALSE
+practices[i,"ss.serviceprov"] <-  TRUE
+
+i = grep("Technical support", practices[,7])
+practices[,"ss.techsupport"] <-  FALSE
+practices[i,"ss.techsupport"] <-  TRUE
+
+i = grep("Marketing support", practices[,7])
+practices[,"ss.marsupport"] <-  FALSE
+practices[i,"ss.marsupport"] <-  TRUE
+
+i = grep("Sales support", practices[,7])
+practices[,"ss.salessupport"] <-  FALSE
+practices[i,"ss.salessupport"] <-  TRUE
 
 practices <- practices[-7]
 

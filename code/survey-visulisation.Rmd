@@ -104,7 +104,7 @@ Next we asked which activities we part of the respondent's responsibilities base
 
 ![ISPMA's Framework v1.3 ](../static/ISPMA-SPM-Framework-V.1.3.png)
 
-All tables below as percentages of respondents who answered yes to the specified activities.
+All tables number of respondents who answered yes to the specified activities.
 
 ### Strategic management
 
@@ -113,12 +113,13 @@ All tables below as percentages of respondents who answered yes to the specified
 practices %>%
   select(Job.title, sm.corpstrat, sm.portfoliomgmt, sm.innovationmgmt, sm.resmgmt, sm.marketanalysis, sm.prodanalysis) %>%
   group_by(Job.title) %>%
-  summarise("Corporate Strategy" = round(sum(sm.corpstrat)/n()*100),
-            "Portfolio Management" = sum(sm.portfoliomgmt)/n()*100,
-            "Innovation Management" = sum(sm.innovationmgmt)/n()*100,
-            "Resource Management" = sum(sm.resmgmt)/n()*100,
-            "Market Analysis" = sum(sm.marketanalysis)/n()*100,
-            "Product Analysis" = sum(sm.prodanalysis)/n()*100) %>%
+  summarise("n" = n(),
+            "Corporate Strategy" = sum(sm.corpstrat),
+            "Portfolio Management" = sum(sm.portfoliomgmt),
+            "Innovation Management" = sum(sm.innovationmgmt),
+            "Resource Management" = sum(sm.resmgmt),
+            "Market Analysis" = sum(sm.marketanalysis),
+            "Product Analysis" = sum(sm.prodanalysis)) %>%
   kable()
 
 
@@ -130,14 +131,15 @@ practices %>%
 practices %>%
   select(roadmap.mat_level, ps.position, ps.deliverymodel, ps.sourcing, ps.bizcase, ps.pricing, ps.ecosystem, ps.legalandpr, ps.perfandrisk) %>%
   group_by(roadmap.mat_level) %>%
-  summarise("Positioning and product definition" = sum(ps.position)/n()*100,
-            "Delivery model & Service strategy" = sum(ps.deliverymodel)/n()*100,
-            "Sourcing" = sum(ps.sourcing)/n()*100,
-            "Business case and costing" = sum(ps.bizcase)/n()*100,
-            "Pricing" = sum(ps.pricing)/n()*100,
-            "Ecosystem management" = sum(ps.ecosystem)/n()*100,
-            "Legal & PR management" = sum(ps.legalandpr)/n()*100,
-            "Performance & Risk management" = sum(ps.perfandrisk)/n()*100) %>%
+  summarise("n" = n(),
+            "Positioning and product definition" = sum(ps.position),
+            "Delivery model & Service strategy" = sum(ps.deliverymodel),
+            "Sourcing" = sum(ps.sourcing),
+            "Business case and costing" = sum(ps.bizcase),
+            "Pricing" = sum(ps.pricing),
+            "Ecosystem management" = sum(ps.ecosystem),
+            "Legal & PR management" = sum(ps.legalandpr),
+            "Performance & Risk management" = sum(ps.perfandrisk)) %>%
   kable()
 
 
@@ -149,10 +151,11 @@ practices %>%
 practices %>%
   select(roadmap.mat_level, pp.lifecycle, pp.roadmapping, pp.releaseplanning, pp.prodRE) %>%
   group_by(roadmap.mat_level) %>%
-  summarise("Product life-cycle management" = sum(pp.lifecycle)/n()*100,
-            "Roadmapping" = sum(pp.roadmapping)/n()*100,
-            "Release planning" = sum(pp.releaseplanning)/n()*100,
-            "Product requirements engineering" = sum(pp.prodRE)/n()*100) %>%
+  summarise("n" = n(),
+            "Product life-cycle management" = sum(pp.lifecycle),
+            "Roadmapping" = sum(pp.roadmapping),
+            "Release planning" = sum(pp.releaseplanning),
+            "Product requirements engineering" = sum(pp.prodRE)) %>%
   kable()
 
 
@@ -165,11 +168,12 @@ practices %>%
 practices %>%
             select(roadmap.mat_level, dev.engmgmt,dev.projmgmt, dev.projRE, dev.ux, dev.qual ) %>%
             group_by(roadmap.mat_level) %>%
-            summarise("Engineering Management" = sum(dev.engmgmt)/n()*100,
-                      "Project Management" = sum(dev.projmgmt)/n()*100,
-                      "Project requirements engineering" = sum(dev.projRE)/n()*100,
-                      "User experience design" = sum(dev.ux)/n()*100,
-                      "Quality Management" = sum(dev.qual)/n()*100) %>%
+            summarise("n" = n(),
+                      "Engineering Management" = sum(dev.engmgmt),
+                      "Project Management" = sum(dev.projmgmt),
+                      "Project requirements engineering" = sum(dev.projRE),
+                      "User experience design" = sum(dev.ux),
+                      "Quality Management" = sum(dev.qual)) %>%
   kable()
         
 
@@ -182,12 +186,13 @@ practices %>%
           practices %>%
             select(roadmap.mat_level, mar.plan,mar.cust, mar.oppomgmt, mar.mix, mar.gtm,mar.ops ) %>%
             group_by(roadmap.mat_level) %>%
-            summarise("Marketing planning" = sum(mar.plan)/n()*100,
-                      "Customer analysis" = sum(mar.cust)/n()*100,
-                      "Opportunity Management" = sum(mar.oppomgmt)/n()*100,
-                      "Marketing mix optimisation" = sum(mar.mix)/n()*100,
-                      "Product launches (GTM)" = sum(mar.gtm)/n()*100,
-                      "Operational marketing" = sum(mar.ops)/n()*100) %>%
+            summarise("n" = n(),
+                      "Marketing planning" = sum(mar.plan),
+                      "Customer analysis" = sum(mar.cust),
+                      "Opportunity Management" = sum(mar.oppomgmt),
+                      "Marketing mix optimisation" = sum(mar.mix),
+                      "Product launches (GTM)" = sum(mar.gtm),
+                      "Operational marketing" = sum(mar.ops)) %>%
   kable()
 
 ```
@@ -195,54 +200,79 @@ practices %>%
 ### Sales and Distribution
 
 ```{r}
+
+          practices %>%
+            select(roadmap.mat_level, sd.salesplan, sd.chanelprep, sd.crm, sd.salesops, sd.opdistro ) %>%
+            group_by(roadmap.mat_level) %>%
+            summarise("n" = n(),
+                      "Sales planning" = sum(sd.salesplan),
+                      "Channel prep" = sum(sd.chanelprep),
+                      "CRM" = sum(sd.crm),
+                      "Operational sales" = sum(sd.salesops),
+                      "Operational distribution" = sum(sd.opdistro)) %>%
+  kable()
+
 ```
 
 ### Service and Support
 
 ```{r}
+
+         practices %>%
+            select(roadmap.mat_level, ss.serviceplan, ss.serviceprov, ss.techsupport, ss.marsupport, ss.salessupport) %>%
+            group_by(roadmap.mat_level) %>%
+            summarise("n" = n(),
+                      "Service planning and preparation" = sum(ss.serviceplan),
+                      "Service provisioning" = sum(ss.serviceprov),
+                      "Technical support" = sum(ss.techsupport),
+                      "Marketing support" = sum(ss.marsupport),
+                      "Sales support" = sum(ss.salessupport)) %>%
+  kable()
 ```
 
 
 ## Information Sources {.tabset}
 
-Looking at the tranmission of theory to practice, where do people go to get answers? Which communtities are they a part of?
+Looking at the transmission of theory to practice, where do people go to get answers? Which communtities are they a part of?
 
 ### Sources 
 
-Where do people go to get their information? (as percentage of respondents)
+Where do people go to get their information? 
 
 ```{r role2, echo=FALSE}
 clean_responses %>%
   select(Job.title, info.events, info.blogs, info.books, info.communities, info.profbody, info.profcert, info.training, info.vendor, info.google) %>%
   group_by(Job.title) %>%
-  summarise("Events and conferences" = sum(info.events)/n()*100,
-            "Blogs" = sum(info.blogs)/n()*100,
-            "Books" = sum(info.books)/n()*100,
-            "Online Communities" = sum(info.communities)/n()*100,
-            "Professional Bodies" = sum(info.profbody)/n()*100,
-            "Professional Certification" = sum(info.profcert)/n()*100,
-            "Professional Training" = sum(info.training)/n()*100,
-            "Tool Vendor material" = sum(info.vendor)/n()*100,
-            "Google" = sum(info.google)/n()*100)  %>% 
+  summarise("n" = n(),
+            "Events and conferences" = sum(info.events),
+            "Blogs" = sum(info.blogs),
+            "Books" = sum(info.books),
+            "Online Communities" = sum(info.communities),
+            "Professional Bodies" = sum(info.profbody),
+            "Professional Certification" = sum(info.profcert),
+            "Professional Training" = sum(info.training),
+            "Tool Vendor material" = sum(info.vendor),
+            "Google" = sum(info.google))  %>% 
   kable(digits = 2)
 ```
 
 ### Professional bodies
 
-Which professional bodies are they members of? (as percentage of respondents)
+Which professional bodies are they members of? 
 
 ```{r profbdy, echo=FALSE}
 clean_responses %>%
   select(Job.title, profbody.acm, profbody.aipmm, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.WiP, profbody.none) %>%
   group_by(Job.title) %>%
-  summarise("ACM" = round(sum(profbody.acm)/n()*100),
-            "AIPMM" = sum(profbody.aipmm)/n()*100,
-            "BCS" = sum(profbody.bcs)/n()*100,
-            "ISPMA" = sum(profbody.ispma)/n()*100,
-            "PDMA" = sum(profbody.pdma)/n()*100,
-            "MTP" = sum(profbody.MTP)/n()*100,
-            "WiP" = sum(profbody.WiP)/n()*100,
-            "None" = sum(profbody.none)/n()*100) %>%
+  summarise("n" = n(),
+            "ACM" = round(sum(profbody.acm)),
+            "AIPMM" = sum(profbody.aipmm),
+            "BCS" = sum(profbody.bcs),
+            "ISPMA" = sum(profbody.ispma),
+            "PDMA" = sum(profbody.pdma),
+            "MTP" = sum(profbody.MTP),
+            "WiP" = sum(profbody.WiP),
+            "None" = sum(profbody.none)) %>%
   kable(digits = 2)
 ```
 
@@ -286,7 +316,7 @@ for(i in 1:ncol(items)) {
 mtext(paste("DEEP responses, n=" , nrow(items)), side=1, outer=TRUE, line=-3)
 ```
 
-### by job title
+### By job title
 
 How mature were the roadmap processes by job title of respondent? 
 
@@ -403,7 +433,7 @@ Percentage of tools types used
                       "Project management tools" = sum(project)/n()*100) %>% 
   kable(digits = 2, title = "Percentage of tools types used")
     
-    cat("populatity of tool combinations")
+    cat("popularity of tool combinations")
 
     pm.tools %>%
   select(roadmap.tools ) %>%
@@ -417,7 +447,7 @@ Percentage of tools types used
 
 # Inferential Statistics 
 
-did happiness with the roadmap process correlate to a higher maturity score?
+Did perception of roadmap process effectiveness correlate to a higher maturity score?
 
 ![Happiness of roadmap vs DEEP score for product people](../outputs/DEEPscore_vs_roadmapHappiness_prod.png)
 

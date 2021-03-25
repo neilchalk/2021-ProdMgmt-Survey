@@ -74,6 +74,17 @@ clean_responses %>%
 
 ```
 
+### Org and team size by location 
+
+```{r location_data_sizes}
+
+          ggplot(clean_responses, aes(x=org.employees, y=org.prodteamsize)) + 
+            geom_jitter(shape=16, position=position_jitter(0.2)) +
+            facet_wrap(~org.location)   
+
+```
+
+
 ## Role - Perceptions {.tabset} 
 
 How happy were the respondents with their roadmap process and level of responsibility in the role?
@@ -233,7 +244,7 @@ practices %>%
 
 ## Information Sources {.tabset}
 
-Looking at the transmission of theory to practice, where do people go to get answers? Which communtities are they a part of?
+Looking at the transmission of theory to practice, where do people go to get answers? Which communities are they a part of?
 
 ### Sources 
 

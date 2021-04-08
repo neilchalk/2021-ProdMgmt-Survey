@@ -29,6 +29,10 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(dplyr)
+library(xtable)
+options(xtable.comment = FALSE)
 ```
 
 # Research Methodology {.tabset}
@@ -48,8 +52,6 @@ summary(report::report(sessionInfo()))
 What is the make up of the organisations that the respondents are working in?
 
 ```{r org, echo=FALSE}
-library(knitr)
-library(dplyr)
 
 summary(clean_responses[3:4]) %>% kable
 summary(clean_responses[5:7]) %>% kable
@@ -87,7 +89,7 @@ clean_responses %>%
 
 ## Role - Perceptions {.tabset} 
 
-How happy were the respondents with their roadmap process and level of responsibility in the role?
+How well did the respondents view their roadmap process and level of responsibility in the role?
 
 ### Chart
 
@@ -343,6 +345,21 @@ clean_responses %>%
 
 
 ```
+
+### Summary Stats
+
+Distribution of DEEP scores.
+
+```{r results='asis'}
+cat("All responses")
+xtable(t(summary(clean_responses[,"roadmap.DEEPScore"]))) 
+cat("Product responses")
+xtable(t(summary(prod_responses[,"roadmap.DEEPScore"]))) 
+cat("Non-product responses")
+xtable(t(summary(nonprod_responses[,"roadmap.DEEPScore"])))
+
+```
+
 
 ## Tool usage {.tabset}
 

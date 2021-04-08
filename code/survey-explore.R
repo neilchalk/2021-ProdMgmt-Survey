@@ -141,6 +141,16 @@ clean_responses %>%
             "Google" = sum(info.google)) %>%
   kable
 
+# 
+lmInfoRoadmap = lm(roadmap.DEEPScore ~ info.events + info.profcert , data = prod_responses) #Create a linear regression with two variables
+summary(lmInfoRoadmap)
+performance::check_model(lmInfoRoadmap)
+
+# 
+lmInfoRoadmap = lm(roadmap.DEEPScore ~ info.events * info.blogs * info.books * info.profcert * info.training , data = prod_responses) #Create a linear regression with two variables
+summary(lmInfoRoadmap)
+performance::check_model(lmInfoRoadmap)
+
 prod_responses %>%
   select(Job.title, profbody.acm, profbody.aipmm, profbody.ami, profbody.apm, profbody.bcs, profbody.iaoip, profbody.ispma, profbody.pdma, profbody.MTP, profbody.WiP, profbody.none) %>%
   group_by(Job.title) %>%
@@ -204,10 +214,10 @@ practices %>%
             "Product Analysis" = sum(sm.prodanalysis)/n()*100)
 
 # appears to be a relationship between having responsibility for market analysis and roadmap maturity 
-lmDEEPPractices = lm(roadmap.DEEPScore ~ sm.marketanalysis , data = practices) #Create a linear regression with two variables
+lmDEEPPractices = lm(roadmap.DEEPScore ~ sm.marketanalysis , data = pm.practices) #Create a linear regression with two variables
 summary(lmDEEPPractices)
 
-ggplot(practices) +
+ggplot(pm.practices) +
   geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(y = sm.corpstrat, x = roadmap.DEEPScore)) 
   ggplot(practices) +  geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(y = sm.portfoliomgmt, x = roadmap.DEEPScore)) 
   ggplot(practices) +  geom_point(position = position_jitter(width = 0.1, height = 0.1), aes(y = sm.innovationmgmt, x = roadmap.DEEPScore)) 
@@ -243,10 +253,12 @@ practices %>%
             "Performance & Risk management" = sum(ps.perfandrisk)/n()*100)
 
 # appears to be a relationship between having responsibility for "Business case and costing" and roadmap maturity 
-lmDEEPProdPractices = lm(roadmap.DEEPScore ~ ps.bizcase , data = practices) #Create a linear regression with two variables
+lmDEEPProdPractices = lm(roadmap.DEEPScore ~  ps.pricing + ps.position , data = pm.practices) #Create a linear regression with two variables
 summary(lmDEEPProdPractices)
 plot(lmDEEPProdPractices$residuals, pch = 16, col = "red")
 
+pm.practices <-      practices %>%
+  filter(grepl('Product', Job.title)) 
 
 practices %>%
   select(Job.title, roadmap.mat_level, pp.lifecycle, pp.roadmapping, pp.releaseplanning, pp.prodRE) %>%
@@ -258,10 +270,12 @@ practices %>%
             "Product requirements engineering" = sum(pp.prodRE))
 
 # appears to be a relationship between having responsibility for "Release planning" and roadmap maturity 
-lmDEEPPlanPractices = lm(roadmap.DEEPScore ~ pp.releaseplanning , data = practices) #Create a linear regression with two variables
+lmDEEPPlanPractices = lm(roadmap.DEEPScore ~ pp.releaseplanning , data = pm.practices) #Create a linear regression with two variables
 summary(lmDEEPPlanPractices)
-
 plot(lmDEEPPlanPractices$residuals, pch = 16, col = "red")
+
+
+
 
 ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) + 
   geom_boxplot() + 

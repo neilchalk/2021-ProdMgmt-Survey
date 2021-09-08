@@ -213,6 +213,10 @@ practices %>%
             "Market Analysis" = sum(sm.marketanalysis)/n()*100,
             "Product Analysis" = sum(sm.prodanalysis)/n()*100)
 
+pm.practices <-      practices %>%
+  filter(grepl('Product', Job.title)) 
+
+
 # appears to be a relationship between having responsibility for market analysis and roadmap maturity 
 lmDEEPPractices = lm(roadmap.DEEPScore ~ sm.marketanalysis , data = pm.practices) #Create a linear regression with two variables
 summary(lmDEEPPractices)
@@ -252,13 +256,14 @@ practices %>%
             "Legal & PR management" = sum(ps.legalandpr)/n()*100,
             "Performance & Risk management" = sum(ps.perfandrisk)/n()*100)
 
-# appears to be a relationship between having responsibility for "Business case and costing" and roadmap maturity 
-lmDEEPProdPractices = lm(roadmap.DEEPScore ~  ps.pricing + ps.position , data = pm.practices) #Create a linear regression with two variables
-summary(lmDEEPProdPractices)
-plot(lmDEEPProdPractices$residuals, pch = 16, col = "red")
-
 pm.practices <-      practices %>%
   filter(grepl('Product', Job.title)) 
+
+# appears to be a relationship between having responsibility for "Business case and costing" and roadmap maturity 
+lmDEEPProdPractices = lm(roadmap.DEEPScore ~  ps.pricing, data = pm.practices) #Create a linear regression with two variables
+summary(lmDEEPProdPractices)
+plot(lmDEEPProdPractices$residuals, pch = 16, col = "red")
+performance::check_model(lmDEEPProdPractices)
 
 practices %>%
   select(Job.title, roadmap.mat_level, pp.lifecycle, pp.roadmapping, pp.releaseplanning, pp.prodRE) %>%
@@ -269,7 +274,7 @@ practices %>%
             "Release planning" = sum(pp.releaseplanning),
             "Product requirements engineering" = sum(pp.prodRE))
 
-# appears to be a relationship between having responsibility for "Release planning" and roadmap maturity 
+# appears to be no relationship between having responsibility for "Release planning" and roadmap maturity 
 lmDEEPPlanPractices = lm(roadmap.DEEPScore ~ pp.releaseplanning , data = pm.practices) #Create a linear regression with two variables
 summary(lmDEEPPlanPractices)
 plot(lmDEEPPlanPractices$residuals, pch = 16, col = "red")
@@ -290,7 +295,7 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
                       "User experience design" = sum(dev.ux)/n()*100,
                       "Quality Management" = sum(dev.qual)/n()*100)
         
-            # appears to be a negative relationship between having responsibility for "Engineering Management"  and roadmap maturity 
+            # appears to be no relationship between having responsibility for "Engineering Management"  and roadmap maturity 
           lmDEEPDevPractices = lm(roadmap.DEEPScore ~ dev.engmgmt , data = practices) #Create a linear regression with two variables
           summary(lmDEEPDevPractices)
           
@@ -299,7 +304,7 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
             select(roadmap.DEEPScore, Job.title, roadmap.mat_level, dev.engmgmt,dev.projmgmt, dev.projRE, dev.ux, dev.qual ) %>%
             filter(grepl('Product', Job.title)) 
           
-          # still appears to be a negative relationship between having responsibility for "Engineering Management"  and roadmap maturity 
+          # appears to be no relationship between having responsibility for "Engineering Management"  and roadmap maturity 
           lmDEEPDevPractices = lm(roadmap.DEEPScore ~ dev.engmgmt , data = pm.practices) #Create a linear regression with two variables
           summary(lmDEEPDevPractices)
           
@@ -363,7 +368,7 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
           #plot(lmDEEPTools$residuals, pch = 16, col = "red")
           
           
-          #apears to be a negative relationship with just office/project tools but positive with both
+          #appears to be a negative relationship with just office/project tools but positive with both
           pm.tools <-      tools %>%
              filter(!grepl('Product', Job.title)) 
           
@@ -403,3 +408,16 @@ ggplot(practices, aes(x=pp.releaseplanning, y=roadmap.DEEPScore)) +
             summarise(n = n(),
                       roadmap.DEEPScore = mean(roadmap.DEEPScore),
                       roadmap.mat_level = mean(roadmap.mat_level))
+          
+          
+          
+#ICSOB2021 
+          #appears to be a negative relationship with just office/project tools but positive with both
+          lmDEEPProdTools = lm(roadmap.DEEPScore ~ office * project , data = pm.tools) #Create a linear regression with two variables
+          summary(lmDEEPProdTools)
+          
+          # appears to be a relationship between having responsibility for "Business case and costing" and roadmap maturity 
+          lmDEEPProdPractices = lm(roadmap.DEEPScore ~  ps.pricing, data = pm.practices) #Create a linear regression with two variables
+          summary(lmDEEPProdPractices)
+          
+          
